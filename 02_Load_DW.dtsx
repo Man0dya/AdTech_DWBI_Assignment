@@ -11,8 +11,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="02_Load_DW"
   DTS:PackageType="5"
-  DTS:VersionBuild="13"
-  DTS:VersionGUID="{0A8F4C86-3C40-4262-84C5-933D430518CC}">
+  DTS:VersionBuild="38"
+  DTS:VersionGUID="{20B9FF47-EC9C-4C38-8816-80267FFFE63B}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -29,7 +29,7 @@
           <DTS:Password
             DTS:Name="Password"
             Sensitive="1"
-            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAUVAgy+gQiEaHb/aSvbQGEwAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAABAUmP4Kd3/wefwatnb9jw6NvapIyZwcPd/gtDaNxEW+wAAAAAOgAAAAAIAACAAAAC+fluIAgk4UOrVBvyFOPuW33ANld7dqJ8dy8IRtTMhihAAAAATfLbzcDMO4EX+JBgzRyfsQAAAALVfM7JTjFh9WIeEKX8+u0ChGfEBzvfTaFb3p7aOPglR4FbyeMdVzxrGrlRLX9CXKcxGoSvNPg27KnYN4CihMfY</DTS:Password>
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAUVAgy+gQiEaHb/aSvbQGEwAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAADGHAc6IYjfnT64lEYOC6P6bvDCJVKfNZ/ckKs7H4H+3gAAAAAOgAAAAAIAACAAAAD9jx030pER+cqNr/Mz/pWfnVC++72c4blaC1sFxlIDPxAAAABOttklPQRJUBqN6Ity4itwQAAAAFEg6IQGl6EpiDwgEnQRNM1GSw1Z1i2qADT02IiTneIlmQF0b1juz/ahHWTz6E15GEuLb0Ahz5amRu26Jcykgt0</DTS:Password>
         </DTS:ConnectionManager>
       </DTS:ObjectData>
     </DTS:ConnectionManager>
@@ -46,13 +46,30 @@
           <DTS:Password
             DTS:Name="Password"
             Sensitive="1"
-            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAUVAgy+gQiEaHb/aSvbQGEwAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAAD8E/VD4X8pYYudUiC6BZL0LlxGxgmjoBiH2NlqlsBB6wAAAAAOgAAAAAIAACAAAAAFaPHe2H+fUEhFCQu+toKqLOzzmscEHunA3CQdlXC0IxAAAAD6K8DiV7yDhOfyP8lw8qFuQAAAAJR2Rz0gNdofI5zRNsboog3PHitwDmvW61VJfU/LLU3HOYaxGh7Ktfh9dm/YD3C1ZS3ccCa6fC1mElbq4uRdPa8</DTS:Password>
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAUVAgy+gQiEaHb/aSvbQGEwAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAAC8rxI7IBfQtx49JyREisitz4DtviZUN9aXwmJtweRyzwAAAAAOgAAAAAIAACAAAAB0GOjENAhhcEtURo3ItY1MU3/20gb/GbPsq0t+GBayJxAAAAB55HiWcqma+2hVQ+00vltFQAAAAP+AZFAQENkWWi4tF123rj8b1EWWZgP6KaHVcvM72kPwlFe8MA41zIZXzl0/5jHPJGEOZvdNsgQKB7hf5gtBbIM</DTS:Password>
         </DTS:ConnectionManager>
       </DTS:ObjectData>
     </DTS:ConnectionManager>
   </DTS:ConnectionManagers>
   <DTS:Variables />
   <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Delete Existing Current Users"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{8FA0218C-EF37-4178-9A6E-C0D41D36C437}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Delete Existing Current Users"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{E84821E2-DD63-4871-99BB-06BCA9B88FBA}"
+          SQLTask:SqlStatementSource="DELETE FROM dbo.DimUser&#xA;WHERE IsCurrent = 1&#xA;AND UserNK IN (&#xA;    SELECT user_id FROM AdTech_Staging.dbo.StgChangedUsers&#xA;);" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
     <DTS:Executable
       DTS:refId="Package\Expire Old User Records"
       DTS:CreationName="Microsoft.ExecuteSQLTask"
@@ -67,7 +84,7 @@
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
           SQLTask:Connection="{E84821E2-DD63-4871-99BB-06BCA9B88FBA}"
-          SQLTask:SqlStatementSource="UPDATE d&#xA;SET&#xA;    d.ValidTo = GETDATE(),&#xA;    d.IsCurrent = 0&#xA;FROM dbo.DimUser d&#xA;INNER JOIN AdTech_Staging.dbo.StgChangedUsers s&#xA;    ON d.UserNK = s.user_id&#xA;WHERE d.IsCurrent = 1;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          SQLTask:SqlStatementSource="UPDATE d&#xA;SET&#xA;    d.ValidTo = GETDATE(),&#xA;    d.IsCurrent = 0&#xA;FROM dbo.DimUser d&#xA;WHERE d.IsCurrent = 1&#xA;AND EXISTS (&#xA;    SELECT 1&#xA;    FROM AdTech_Staging.dbo.StgChangedUsers s&#xA;    WHERE s.user_id = d.UserNK&#xA;);" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
     <DTS:Executable
@@ -1385,6 +1402,252 @@ where [refTable].[UserNK] = ?</property>
           version="1">
           <components>
             <component
+              refId="Package\Insert New User Versions\DC_NewUserVersions"
+              componentClassID="Microsoft.DataConvert"
+              contactInfo="Data Conversion;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Data Conversion"
+              name="DC_NewUserVersions"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Insert New User Versions\DC_NewUserVersions.Inputs[Data Conversion Input]"
+                  name="Data Conversion Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Insert New User Versions\DC_NewUserVersions.Inputs[Data Conversion Input].Columns[user_id]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="user_id"
+                      lineageId="Package\Insert New User Versions\SRC_StgChangedUsers.Outputs[OLE DB Source Output].Columns[user_id]" />
+                    <inputColumn
+                      refId="Package\Insert New User Versions\DC_NewUserVersions.Inputs[Data Conversion Input].Columns[user_gender]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="user_gender"
+                      lineageId="Package\Insert New User Versions\SRC_StgChangedUsers.Outputs[OLE DB Source Output].Columns[user_gender]" />
+                    <inputColumn
+                      refId="Package\Insert New User Versions\DC_NewUserVersions.Inputs[Data Conversion Input].Columns[age_group]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="age_group"
+                      lineageId="Package\Insert New User Versions\SRC_StgChangedUsers.Outputs[OLE DB Source Output].Columns[age_group]" />
+                    <inputColumn
+                      refId="Package\Insert New User Versions\DC_NewUserVersions.Inputs[Data Conversion Input].Columns[country]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="country"
+                      lineageId="Package\Insert New User Versions\SRC_StgChangedUsers.Outputs[OLE DB Source Output].Columns[country]" />
+                    <inputColumn
+                      refId="Package\Insert New User Versions\DC_NewUserVersions.Inputs[Data Conversion Input].Columns[location]"
+                      cachedDataType="wstr"
+                      cachedLength="150"
+                      cachedName="location"
+                      lineageId="Package\Insert New User Versions\SRC_StgChangedUsers.Outputs[OLE DB Source Output].Columns[location]" />
+                    <inputColumn
+                      refId="Package\Insert New User Versions\DC_NewUserVersions.Inputs[Data Conversion Input].Columns[interests]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="interests"
+                      lineageId="Package\Insert New User Versions\SRC_StgChangedUsers.Outputs[OLE DB Source Output].Columns[interests]" />
+                    <inputColumn
+                      refId="Package\Insert New User Versions\DC_NewUserVersions.Inputs[Data Conversion Input].Columns[primary_interest]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="primary_interest"
+                      lineageId="Package\Insert New User Versions\SRC_StgChangedUsers.Outputs[OLE DB Source Output].Columns[primary_interest]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Insert New User Versions\DC_NewUserVersions.Outputs[Data Conversion Output]"
+                  exclusionGroup="1"
+                  name="Data Conversion Output"
+                  synchronousInputId="Package\Insert New User Versions\DC_NewUserVersions.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Insert New User Versions\DC_NewUserVersions.Outputs[Data Conversion Output].Columns[user_id_s]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="50"
+                      lineageId="Package\Insert New User Versions\DC_NewUserVersions.Outputs[Data Conversion Output].Columns[user_id_s]"
+                      name="user_id_s"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Insert New User Versions\SRC_StgChangedUsers.Outputs[OLE DB Source Output].Columns[user_id]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Insert New User Versions\DC_NewUserVersions.Outputs[Data Conversion Output].Columns[user_gender_s]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="20"
+                      lineageId="Package\Insert New User Versions\DC_NewUserVersions.Outputs[Data Conversion Output].Columns[user_gender_s]"
+                      name="user_gender_s"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Insert New User Versions\SRC_StgChangedUsers.Outputs[OLE DB Source Output].Columns[user_gender]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Insert New User Versions\DC_NewUserVersions.Outputs[Data Conversion Output].Columns[age_group_s]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="20"
+                      lineageId="Package\Insert New User Versions\DC_NewUserVersions.Outputs[Data Conversion Output].Columns[age_group_s]"
+                      name="age_group_s"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Insert New User Versions\SRC_StgChangedUsers.Outputs[OLE DB Source Output].Columns[age_group]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Insert New User Versions\DC_NewUserVersions.Outputs[Data Conversion Output].Columns[country_s]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="100"
+                      lineageId="Package\Insert New User Versions\DC_NewUserVersions.Outputs[Data Conversion Output].Columns[country_s]"
+                      name="country_s"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Insert New User Versions\SRC_StgChangedUsers.Outputs[OLE DB Source Output].Columns[country]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Insert New User Versions\DC_NewUserVersions.Outputs[Data Conversion Output].Columns[location_s]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="150"
+                      lineageId="Package\Insert New User Versions\DC_NewUserVersions.Outputs[Data Conversion Output].Columns[location_s]"
+                      name="location_s"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Insert New User Versions\SRC_StgChangedUsers.Outputs[OLE DB Source Output].Columns[location]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Insert New User Versions\DC_NewUserVersions.Outputs[Data Conversion Output].Columns[interests_s]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="255"
+                      lineageId="Package\Insert New User Versions\DC_NewUserVersions.Outputs[Data Conversion Output].Columns[interests_s]"
+                      name="interests_s"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Insert New User Versions\SRC_StgChangedUsers.Outputs[OLE DB Source Output].Columns[interests]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Insert New User Versions\DC_NewUserVersions.Outputs[Data Conversion Output].Columns[primary_interest_s]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="100"
+                      lineageId="Package\Insert New User Versions\DC_NewUserVersions.Outputs[Data Conversion Output].Columns[primary_interest_s]"
+                      name="primary_interest_s"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Insert New User Versions\SRC_StgChangedUsers.Outputs[OLE DB Source Output].Columns[primary_interest]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Insert New User Versions\DC_NewUserVersions.Outputs[Data Conversion Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Data Conversion Error Output"
+                  synchronousInputId="Package\Insert New User Versions\DC_NewUserVersions.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Insert New User Versions\DC_NewUserVersions.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Insert New User Versions\DC_NewUserVersions.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Insert New User Versions\DC_NewUserVersions.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Insert New User Versions\DC_NewUserVersions.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
               refId="Package\Insert New User Versions\DRV_NewUserAudit"
               componentClassID="Microsoft.DerivedColumn"
               contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
@@ -1552,25 +1815,33 @@ where [refTable].[UserNK] = ?</property>
                   name="OLE DB Destination Input">
                   <inputColumns>
                     <inputColumn
+                      refId="Package\Insert New User Versions\DST_NewDimUserVersions.Inputs[OLE DB Destination Input].Columns[ValidFrom]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="ValidFrom"
+                      externalMetadataColumnId="Package\Insert New User Versions\DST_NewDimUserVersions.Inputs[OLE DB Destination Input].ExternalColumns[ValidFrom]"
+                      lineageId="Package\Insert New User Versions\DRV_NewUserAudit.Outputs[Derived Column Output].Columns[ValidFrom]" />
+                    <inputColumn
                       refId="Package\Insert New User Versions\DST_NewDimUserVersions.Inputs[OLE DB Destination Input].Columns[IsCurrent]"
                       cachedDataType="bool"
                       cachedName="IsCurrent"
                       externalMetadataColumnId="Package\Insert New User Versions\DST_NewDimUserVersions.Inputs[OLE DB Destination Input].ExternalColumns[IsCurrent]"
                       lineageId="Package\Insert New User Versions\DRV_NewUserAudit.Outputs[Derived Column Output].Columns[IsCurrent]" />
                     <inputColumn
-                      refId="Package\Insert New User Versions\DST_NewDimUserVersions.Inputs[OLE DB Destination Input].Columns[user_id]"
-                      cachedDataType="wstr"
+                      refId="Package\Insert New User Versions\DST_NewDimUserVersions.Inputs[OLE DB Destination Input].Columns[user_id_s]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
                       cachedLength="50"
-                      cachedName="user_id"
+                      cachedName="user_id_s"
                       externalMetadataColumnId="Package\Insert New User Versions\DST_NewDimUserVersions.Inputs[OLE DB Destination Input].ExternalColumns[UserNK]"
-                      lineageId="Package\Insert New User Versions\SRC_StgChangedUsers.Outputs[OLE DB Source Output].Columns[user_id]" />
+                      lineageId="Package\Insert New User Versions\DC_NewUserVersions.Outputs[Data Conversion Output].Columns[user_id_s]" />
                     <inputColumn
-                      refId="Package\Insert New User Versions\DST_NewDimUserVersions.Inputs[OLE DB Destination Input].Columns[user_gender]"
-                      cachedDataType="wstr"
+                      refId="Package\Insert New User Versions\DST_NewDimUserVersions.Inputs[OLE DB Destination Input].Columns[user_gender_s]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
                       cachedLength="20"
-                      cachedName="user_gender"
+                      cachedName="user_gender_s"
                       externalMetadataColumnId="Package\Insert New User Versions\DST_NewDimUserVersions.Inputs[OLE DB Destination Input].ExternalColumns[UserGender]"
-                      lineageId="Package\Insert New User Versions\SRC_StgChangedUsers.Outputs[OLE DB Source Output].Columns[user_gender]" />
+                      lineageId="Package\Insert New User Versions\DC_NewUserVersions.Outputs[Data Conversion Output].Columns[user_gender_s]" />
                     <inputColumn
                       refId="Package\Insert New User Versions\DST_NewDimUserVersions.Inputs[OLE DB Destination Input].Columns[user_age]"
                       cachedDataType="i4"
@@ -1578,46 +1849,45 @@ where [refTable].[UserNK] = ?</property>
                       externalMetadataColumnId="Package\Insert New User Versions\DST_NewDimUserVersions.Inputs[OLE DB Destination Input].ExternalColumns[UserAge]"
                       lineageId="Package\Insert New User Versions\SRC_StgChangedUsers.Outputs[OLE DB Source Output].Columns[user_age]" />
                     <inputColumn
-                      refId="Package\Insert New User Versions\DST_NewDimUserVersions.Inputs[OLE DB Destination Input].Columns[age_group]"
-                      cachedDataType="wstr"
-                      cachedLength="20"
-                      cachedName="age_group"
-                      externalMetadataColumnId="Package\Insert New User Versions\DST_NewDimUserVersions.Inputs[OLE DB Destination Input].ExternalColumns[AgeGroup]"
-                      lineageId="Package\Insert New User Versions\SRC_StgChangedUsers.Outputs[OLE DB Source Output].Columns[age_group]" />
-                    <inputColumn
-                      refId="Package\Insert New User Versions\DST_NewDimUserVersions.Inputs[OLE DB Destination Input].Columns[country]"
-                      cachedDataType="wstr"
+                      refId="Package\Insert New User Versions\DST_NewDimUserVersions.Inputs[OLE DB Destination Input].Columns[country_s]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
                       cachedLength="100"
-                      cachedName="country"
+                      cachedName="country_s"
                       externalMetadataColumnId="Package\Insert New User Versions\DST_NewDimUserVersions.Inputs[OLE DB Destination Input].ExternalColumns[Country]"
-                      lineageId="Package\Insert New User Versions\SRC_StgChangedUsers.Outputs[OLE DB Source Output].Columns[country]" />
+                      lineageId="Package\Insert New User Versions\DC_NewUserVersions.Outputs[Data Conversion Output].Columns[country_s]" />
                     <inputColumn
-                      refId="Package\Insert New User Versions\DST_NewDimUserVersions.Inputs[OLE DB Destination Input].Columns[location]"
-                      cachedDataType="wstr"
+                      refId="Package\Insert New User Versions\DST_NewDimUserVersions.Inputs[OLE DB Destination Input].Columns[location_s]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
                       cachedLength="150"
-                      cachedName="location"
+                      cachedName="location_s"
                       externalMetadataColumnId="Package\Insert New User Versions\DST_NewDimUserVersions.Inputs[OLE DB Destination Input].ExternalColumns[Location]"
-                      lineageId="Package\Insert New User Versions\SRC_StgChangedUsers.Outputs[OLE DB Source Output].Columns[location]" />
+                      lineageId="Package\Insert New User Versions\DC_NewUserVersions.Outputs[Data Conversion Output].Columns[location_s]" />
                     <inputColumn
-                      refId="Package\Insert New User Versions\DST_NewDimUserVersions.Inputs[OLE DB Destination Input].Columns[primary_interest]"
-                      cachedDataType="wstr"
-                      cachedLength="100"
-                      cachedName="primary_interest"
-                      externalMetadataColumnId="Package\Insert New User Versions\DST_NewDimUserVersions.Inputs[OLE DB Destination Input].ExternalColumns[PrimaryInterest]"
-                      lineageId="Package\Insert New User Versions\SRC_StgChangedUsers.Outputs[OLE DB Source Output].Columns[primary_interest]" />
+                      refId="Package\Insert New User Versions\DST_NewDimUserVersions.Inputs[OLE DB Destination Input].Columns[age_group_s]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="age_group_s"
+                      externalMetadataColumnId="Package\Insert New User Versions\DST_NewDimUserVersions.Inputs[OLE DB Destination Input].ExternalColumns[AgeGroup]"
+                      lineageId="Package\Insert New User Versions\DC_NewUserVersions.Outputs[Data Conversion Output].Columns[age_group_s]" />
                     <inputColumn
-                      refId="Package\Insert New User Versions\DST_NewDimUserVersions.Inputs[OLE DB Destination Input].Columns[interests]"
-                      cachedDataType="wstr"
+                      refId="Package\Insert New User Versions\DST_NewDimUserVersions.Inputs[OLE DB Destination Input].Columns[interests_s]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
                       cachedLength="255"
-                      cachedName="interests"
+                      cachedName="interests_s"
                       externalMetadataColumnId="Package\Insert New User Versions\DST_NewDimUserVersions.Inputs[OLE DB Destination Input].ExternalColumns[AllInterests]"
-                      lineageId="Package\Insert New User Versions\SRC_StgChangedUsers.Outputs[OLE DB Source Output].Columns[interests]" />
+                      lineageId="Package\Insert New User Versions\DC_NewUserVersions.Outputs[Data Conversion Output].Columns[interests_s]" />
                     <inputColumn
-                      refId="Package\Insert New User Versions\DST_NewDimUserVersions.Inputs[OLE DB Destination Input].Columns[ValidFrom]"
-                      cachedDataType="dbTimeStamp"
-                      cachedName="ValidFrom"
-                      externalMetadataColumnId="Package\Insert New User Versions\DST_NewDimUserVersions.Inputs[OLE DB Destination Input].ExternalColumns[ValidFrom]"
-                      lineageId="Package\Insert New User Versions\DRV_NewUserAudit.Outputs[Derived Column Output].Columns[ValidFrom]" />
+                      refId="Package\Insert New User Versions\DST_NewDimUserVersions.Inputs[OLE DB Destination Input].Columns[primary_interest_s]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="100"
+                      cachedName="primary_interest_s"
+                      externalMetadataColumnId="Package\Insert New User Versions\DST_NewDimUserVersions.Inputs[OLE DB Destination Input].ExternalColumns[PrimaryInterest]"
+                      lineageId="Package\Insert New User Versions\DC_NewUserVersions.Outputs[Data Conversion Output].Columns[primary_interest_s]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -1736,7 +2006,17 @@ where [refTable].[UserNK] = ?</property>
                   dataType="System.String"
                   description="The SQL command to be executed."
                   name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT
+    user_id,
+    MAX(user_gender) AS user_gender,
+    MAX(user_age) AS user_age,
+    MAX(age_group) AS age_group,
+    MAX(country) AS country,
+    MAX(location) AS location,
+    MAX(interests) AS interests,
+    MAX(primary_interest) AS primary_interest
+FROM dbo.StgChangedUsers
+GROUP BY user_id;</property>
                 <property
                   dataType="System.String"
                   description="The variable that contains the SQL command to be executed."
@@ -1753,7 +2033,7 @@ where [refTable].[UserNK] = ?</property>
                   dataType="System.Int32"
                   description="Specifies the mode used to access the database."
                   name="AccessMode"
-                  typeConverter="AccessMode">0</property>
+                  typeConverter="AccessMode">2</property>
                 <property
                   dataType="System.String"
                   description="The mappings between the parameters in the SQL command and variables."
@@ -1967,8 +2247,13 @@ where [refTable].[UserNK] = ?</property>
           </components>
           <paths>
             <path
-              refId="Package\Insert New User Versions.Paths[Derived Column Output]"
+              refId="Package\Insert New User Versions.Paths[Data Conversion Output]"
               endId="Package\Insert New User Versions\DST_NewDimUserVersions.Inputs[OLE DB Destination Input]"
+              name="Data Conversion Output"
+              startId="Package\Insert New User Versions\DC_NewUserVersions.Outputs[Data Conversion Output]" />
+            <path
+              refId="Package\Insert New User Versions.Paths[Derived Column Output]"
+              endId="Package\Insert New User Versions\DC_NewUserVersions.Inputs[Data Conversion Input]"
               name="Derived Column Output"
               startId="Package\Insert New User Versions\DRV_NewUserAudit.Outputs[Derived Column Output]" />
             <path
@@ -1995,11 +2280,196 @@ where [refTable].[UserNK] = ?</property>
           version="1">
           <components>
             <component
-              refId="Package\Load DimAd\DST_DimAd"
+              refId="Package\Load DimAd\DC_DimAd"
+              componentClassID="Microsoft.DataConvert"
+              contactInfo="Data Conversion;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Data Conversion"
+              name="DC_DimAd"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Load DimAd\DC_DimAd.Inputs[Data Conversion Input]"
+                  name="Data Conversion Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load DimAd\DC_DimAd.Inputs[Data Conversion Input].Columns[ad_platform]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="ad_platform"
+                      lineageId="Package\Load DimAd\SRC_StgAds.Outputs[OLE DB Source Output].Columns[ad_platform]" />
+                    <inputColumn
+                      refId="Package\Load DimAd\DC_DimAd.Inputs[Data Conversion Input].Columns[ad_type]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="ad_type"
+                      lineageId="Package\Load DimAd\SRC_StgAds.Outputs[OLE DB Source Output].Columns[ad_type]" />
+                    <inputColumn
+                      refId="Package\Load DimAd\DC_DimAd.Inputs[Data Conversion Input].Columns[target_age_group]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="target_age_group"
+                      lineageId="Package\Load DimAd\SRC_StgAds.Outputs[OLE DB Source Output].Columns[target_age_group]" />
+                    <inputColumn
+                      refId="Package\Load DimAd\DC_DimAd.Inputs[Data Conversion Input].Columns[target_interests]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="target_interests"
+                      lineageId="Package\Load DimAd\SRC_StgAds.Outputs[OLE DB Source Output].Columns[target_interests]" />
+                    <inputColumn
+                      refId="Package\Load DimAd\DC_DimAd.Inputs[Data Conversion Input].Columns[target_gender]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="target_gender"
+                      lineageId="Package\Load DimAd\SRC_StgAds.Outputs[OLE DB Source Output].Columns[target_gender]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load DimAd\DC_DimAd.Outputs[Data Conversion Output]"
+                  exclusionGroup="1"
+                  name="Data Conversion Output"
+                  synchronousInputId="Package\Load DimAd\DC_DimAd.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load DimAd\DC_DimAd.Outputs[Data Conversion Output].Columns[ad_platform_s]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="50"
+                      lineageId="Package\Load DimAd\DC_DimAd.Outputs[Data Conversion Output].Columns[ad_platform_s]"
+                      name="ad_platform_s"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Load DimAd\SRC_StgAds.Outputs[OLE DB Source Output].Columns[ad_platform]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load DimAd\DC_DimAd.Outputs[Data Conversion Output].Columns[ad_type_s]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="50"
+                      lineageId="Package\Load DimAd\DC_DimAd.Outputs[Data Conversion Output].Columns[ad_type_s]"
+                      name="ad_type_s"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Load DimAd\SRC_StgAds.Outputs[OLE DB Source Output].Columns[ad_type]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load DimAd\DC_DimAd.Outputs[Data Conversion Output].Columns[target_age_group_s]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="20"
+                      lineageId="Package\Load DimAd\DC_DimAd.Outputs[Data Conversion Output].Columns[target_age_group_s]"
+                      name="target_age_group_s"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Load DimAd\SRC_StgAds.Outputs[OLE DB Source Output].Columns[target_age_group]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load DimAd\DC_DimAd.Outputs[Data Conversion Output].Columns[target_interests_s]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="255"
+                      lineageId="Package\Load DimAd\DC_DimAd.Outputs[Data Conversion Output].Columns[target_interests_s]"
+                      name="target_interests_s"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Load DimAd\SRC_StgAds.Outputs[OLE DB Source Output].Columns[target_interests]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load DimAd\DC_DimAd.Outputs[Data Conversion Output].Columns[target_gender_s]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="20"
+                      lineageId="Package\Load DimAd\DC_DimAd.Outputs[Data Conversion Output].Columns[target_gender_s]"
+                      name="target_gender_s"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Load DimAd\SRC_StgAds.Outputs[OLE DB Source Output].Columns[target_gender]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load DimAd\DC_DimAd.Outputs[Data Conversion Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Data Conversion Error Output"
+                  synchronousInputId="Package\Load DimAd\DC_DimAd.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load DimAd\DC_DimAd.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load DimAd\DC_DimAd.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load DimAd\DC_DimAd.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load DimAd\DC_DimAd.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load DimAd\OLE DB Destination"
               componentClassID="Microsoft.OLEDBDestination"
               contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
               description="OLE DB Destination"
-              name="DST_DimAd"
+              name="OLE DB Destination"
               usesDispositions="true"
               version="4">
               <properties>
@@ -2052,7 +2522,7 @@ where [refTable].[UserNK] = ?</property>
               </properties>
               <connections>
                 <connection
-                  refId="Package\Load DimAd\DST_DimAd.Connections[OleDbConnection]"
+                  refId="Package\Load DimAd\OLE DB Destination.Connections[OleDbConnection]"
                   connectionManagerID="Package.ConnectionManagers[CM_DW]"
                   connectionManagerRefId="Package.ConnectionManagers[CM_DW]"
                   description="The OLE DB runtime connection used to access the database."
@@ -2060,102 +2530,97 @@ where [refTable].[UserNK] = ?</property>
               </connections>
               <inputs>
                 <input
-                  refId="Package\Load DimAd\DST_DimAd.Inputs[OLE DB Destination Input]"
+                  refId="Package\Load DimAd\OLE DB Destination.Inputs[OLE DB Destination Input]"
                   errorOrTruncationOperation="Insert"
                   errorRowDisposition="FailComponent"
                   hasSideEffects="true"
                   name="OLE DB Destination Input">
                   <inputColumns>
                     <inputColumn
-                      refId="Package\Load DimAd\DST_DimAd.Inputs[OLE DB Destination Input].Columns[ad_id]"
+                      refId="Package\Load DimAd\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[ad_id]"
                       cachedDataType="i2"
                       cachedName="ad_id"
-                      externalMetadataColumnId="Package\Load DimAd\DST_DimAd.Inputs[OLE DB Destination Input].ExternalColumns[AdNK]"
+                      externalMetadataColumnId="Package\Load DimAd\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[AdNK]"
                       lineageId="Package\Load DimAd\SRC_StgAds.Outputs[OLE DB Source Output].Columns[ad_id]" />
                     <inputColumn
-                      refId="Package\Load DimAd\DST_DimAd.Inputs[OLE DB Destination Input].Columns[campaign_id]"
+                      refId="Package\Load DimAd\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[campaign_id]"
                       cachedDataType="i2"
                       cachedName="campaign_id"
-                      externalMetadataColumnId="Package\Load DimAd\DST_DimAd.Inputs[OLE DB Destination Input].ExternalColumns[CampaignNK]"
+                      externalMetadataColumnId="Package\Load DimAd\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[CampaignNK]"
                       lineageId="Package\Load DimAd\SRC_StgAds.Outputs[OLE DB Source Output].Columns[campaign_id]" />
                     <inputColumn
-                      refId="Package\Load DimAd\DST_DimAd.Inputs[OLE DB Destination Input].Columns[ad_platform]"
+                      refId="Package\Load DimAd\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[ad_platform_s]"
                       cachedDataType="wstr"
                       cachedLength="50"
-                      cachedName="ad_platform"
-                      externalMetadataColumnId="Package\Load DimAd\DST_DimAd.Inputs[OLE DB Destination Input].ExternalColumns[AdPlatform]"
-                      lineageId="Package\Load DimAd\SRC_StgAds.Outputs[OLE DB Source Output].Columns[ad_platform]" />
+                      cachedName="ad_platform_s"
+                      externalMetadataColumnId="Package\Load DimAd\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[AdPlatform]"
+                      lineageId="Package\Load DimAd\DC_DimAd.Outputs[Data Conversion Output].Columns[ad_platform_s]" />
                     <inputColumn
-                      refId="Package\Load DimAd\DST_DimAd.Inputs[OLE DB Destination Input].Columns[ad_type]"
+                      refId="Package\Load DimAd\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[ad_type_s]"
                       cachedDataType="wstr"
                       cachedLength="50"
-                      cachedName="ad_type"
-                      externalMetadataColumnId="Package\Load DimAd\DST_DimAd.Inputs[OLE DB Destination Input].ExternalColumns[AdType]"
-                      lineageId="Package\Load DimAd\SRC_StgAds.Outputs[OLE DB Source Output].Columns[ad_type]" />
+                      cachedName="ad_type_s"
+                      externalMetadataColumnId="Package\Load DimAd\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[AdType]"
+                      lineageId="Package\Load DimAd\DC_DimAd.Outputs[Data Conversion Output].Columns[ad_type_s]" />
                     <inputColumn
-                      refId="Package\Load DimAd\DST_DimAd.Inputs[OLE DB Destination Input].Columns[target_gender]"
+                      refId="Package\Load DimAd\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[target_gender_s]"
                       cachedDataType="wstr"
-                      cachedLength="50"
-                      cachedName="target_gender"
-                      externalMetadataColumnId="Package\Load DimAd\DST_DimAd.Inputs[OLE DB Destination Input].ExternalColumns[TargetGender]"
-                      lineageId="Package\Load DimAd\SRC_StgAds.Outputs[OLE DB Source Output].Columns[target_gender]" />
+                      cachedLength="20"
+                      cachedName="target_gender_s"
+                      externalMetadataColumnId="Package\Load DimAd\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[TargetGender]"
+                      lineageId="Package\Load DimAd\DC_DimAd.Outputs[Data Conversion Output].Columns[target_gender_s]" />
                     <inputColumn
-                      refId="Package\Load DimAd\DST_DimAd.Inputs[OLE DB Destination Input].Columns[target_age_group]"
+                      refId="Package\Load DimAd\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[target_interests_s]"
                       cachedDataType="wstr"
-                      cachedLength="50"
-                      cachedName="target_age_group"
-                      externalMetadataColumnId="Package\Load DimAd\DST_DimAd.Inputs[OLE DB Destination Input].ExternalColumns[TargetAgeGroup]"
-                      lineageId="Package\Load DimAd\SRC_StgAds.Outputs[OLE DB Source Output].Columns[target_age_group]" />
+                      cachedLength="255"
+                      cachedName="target_interests_s"
+                      externalMetadataColumnId="Package\Load DimAd\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[TargetInterests]"
+                      lineageId="Package\Load DimAd\DC_DimAd.Outputs[Data Conversion Output].Columns[target_interests_s]" />
                     <inputColumn
-                      refId="Package\Load DimAd\DST_DimAd.Inputs[OLE DB Destination Input].Columns[target_interests]"
+                      refId="Package\Load DimAd\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[target_age_group_s]"
                       cachedDataType="wstr"
-                      cachedLength="50"
-                      cachedName="target_interests"
-                      externalMetadataColumnId="Package\Load DimAd\DST_DimAd.Inputs[OLE DB Destination Input].ExternalColumns[TargetInterests]"
-                      lineageId="Package\Load DimAd\SRC_StgAds.Outputs[OLE DB Source Output].Columns[target_interests]" />
+                      cachedLength="20"
+                      cachedName="target_age_group_s"
+                      externalMetadataColumnId="Package\Load DimAd\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[TargetAgeGroup]"
+                      lineageId="Package\Load DimAd\DC_DimAd.Outputs[Data Conversion Output].Columns[target_age_group_s]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
                     <externalMetadataColumn
-                      refId="Package\Load DimAd\DST_DimAd.Inputs[OLE DB Destination Input].ExternalColumns[AdKey]"
+                      refId="Package\Load DimAd\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[AdKey]"
                       dataType="i4"
                       name="AdKey" />
                     <externalMetadataColumn
-                      refId="Package\Load DimAd\DST_DimAd.Inputs[OLE DB Destination Input].ExternalColumns[AdNK]"
+                      refId="Package\Load DimAd\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[AdNK]"
                       dataType="i4"
                       name="AdNK" />
                     <externalMetadataColumn
-                      refId="Package\Load DimAd\DST_DimAd.Inputs[OLE DB Destination Input].ExternalColumns[CampaignNK]"
+                      refId="Package\Load DimAd\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[CampaignNK]"
                       dataType="i4"
                       name="CampaignNK" />
                     <externalMetadataColumn
-                      refId="Package\Load DimAd\DST_DimAd.Inputs[OLE DB Destination Input].ExternalColumns[AdPlatform]"
-                      codePage="1252"
-                      dataType="str"
+                      refId="Package\Load DimAd\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[AdPlatform]"
+                      dataType="wstr"
                       length="50"
                       name="AdPlatform" />
                     <externalMetadataColumn
-                      refId="Package\Load DimAd\DST_DimAd.Inputs[OLE DB Destination Input].ExternalColumns[AdType]"
-                      codePage="1252"
-                      dataType="str"
+                      refId="Package\Load DimAd\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[AdType]"
+                      dataType="wstr"
                       length="50"
                       name="AdType" />
                     <externalMetadataColumn
-                      refId="Package\Load DimAd\DST_DimAd.Inputs[OLE DB Destination Input].ExternalColumns[TargetGender]"
-                      codePage="1252"
-                      dataType="str"
+                      refId="Package\Load DimAd\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[TargetGender]"
+                      dataType="wstr"
                       length="20"
                       name="TargetGender" />
                     <externalMetadataColumn
-                      refId="Package\Load DimAd\DST_DimAd.Inputs[OLE DB Destination Input].ExternalColumns[TargetAgeGroup]"
-                      codePage="1252"
-                      dataType="str"
+                      refId="Package\Load DimAd\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[TargetAgeGroup]"
+                      dataType="wstr"
                       length="20"
                       name="TargetAgeGroup" />
                     <externalMetadataColumn
-                      refId="Package\Load DimAd\DST_DimAd.Inputs[OLE DB Destination Input].ExternalColumns[TargetInterests]"
-                      codePage="1252"
-                      dataType="str"
+                      refId="Package\Load DimAd\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[TargetInterests]"
+                      dataType="wstr"
                       length="255"
                       name="TargetInterests" />
                   </externalMetadataColumns>
@@ -2163,22 +2628,22 @@ where [refTable].[UserNK] = ?</property>
               </inputs>
               <outputs>
                 <output
-                  refId="Package\Load DimAd\DST_DimAd.Outputs[OLE DB Destination Error Output]"
+                  refId="Package\Load DimAd\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
                   exclusionGroup="1"
                   isErrorOut="true"
                   name="OLE DB Destination Error Output"
-                  synchronousInputId="Package\Load DimAd\DST_DimAd.Inputs[OLE DB Destination Input]">
+                  synchronousInputId="Package\Load DimAd\OLE DB Destination.Inputs[OLE DB Destination Input]">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\Load DimAd\DST_DimAd.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      refId="Package\Load DimAd\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
                       dataType="i4"
-                      lineageId="Package\Load DimAd\DST_DimAd.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      lineageId="Package\Load DimAd\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
                       name="ErrorCode"
                       specialFlags="1" />
                     <outputColumn
-                      refId="Package\Load DimAd\DST_DimAd.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      refId="Package\Load DimAd\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
                       dataType="i4"
-                      lineageId="Package\Load DimAd\DST_DimAd.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      lineageId="Package\Load DimAd\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
                       name="ErrorColumn"
                       specialFlags="2" />
                   </outputColumns>
@@ -2418,8 +2883,13 @@ where [refTable].[UserNK] = ?</property>
           </components>
           <paths>
             <path
+              refId="Package\Load DimAd.Paths[Data Conversion Output]"
+              endId="Package\Load DimAd\OLE DB Destination.Inputs[OLE DB Destination Input]"
+              name="Data Conversion Output"
+              startId="Package\Load DimAd\DC_DimAd.Outputs[Data Conversion Output]" />
+            <path
               refId="Package\Load DimAd.Paths[OLE DB Source Output]"
-              endId="Package\Load DimAd\DST_DimAd.Inputs[OLE DB Destination Input]"
+              endId="Package\Load DimAd\DC_DimAd.Inputs[Data Conversion Input]"
               name="OLE DB Source Output"
               startId="Package\Load DimAd\SRC_StgAds.Outputs[OLE DB Source Output]" />
           </paths>
@@ -2441,25 +2911,278 @@ where [refTable].[UserNK] = ?</property>
           version="1">
           <components>
             <component
-              refId="Package\Load DimCampaign\Derived Column"
-              componentClassID="Microsoft.DerivedColumn"
-              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
-              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
-              name="Derived Column"
+              refId="Package\Load DimCampaign\DC_DimCampaign"
+              componentClassID="Microsoft.DataConvert"
+              contactInfo="Data Conversion;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Data Conversion"
+              name="DC_DimCampaign"
               usesDispositions="true">
               <inputs>
                 <input
-                  refId="Package\Load DimCampaign\Derived Column.Inputs[Derived Column Input]"
-                  description="Input to the Derived Column Transformation"
-                  name="Derived Column Input">
+                  refId="Package\Load DimCampaign\DC_DimCampaign.Inputs[Data Conversion Input]"
+                  name="Data Conversion Input">
                   <inputColumns>
                     <inputColumn
-                      refId="Package\Load DimCampaign\Derived Column.Inputs[Derived Column Input].Columns[start_date]"
+                      refId="Package\Load DimCampaign\DC_DimCampaign.Inputs[Data Conversion Input].Columns[campaign_id]"
+                      cachedDataType="i2"
+                      cachedName="campaign_id"
+                      lineageId="Package\Load DimCampaign\SRC_StgCampaigns.Outputs[OLE DB Source Output].Columns[campaign_id]" />
+                    <inputColumn
+                      refId="Package\Load DimCampaign\DC_DimCampaign.Inputs[Data Conversion Input].Columns[name]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="name"
+                      lineageId="Package\Load DimCampaign\SRC_StgCampaigns.Outputs[OLE DB Source Output].Columns[name]" />
+                    <inputColumn
+                      refId="Package\Load DimCampaign\DC_DimCampaign.Inputs[Data Conversion Input].Columns[start_date]"
                       cachedDataType="dbDate"
                       cachedName="start_date"
                       lineageId="Package\Load DimCampaign\SRC_StgCampaigns.Outputs[OLE DB Source Output].Columns[start_date]" />
                     <inputColumn
-                      refId="Package\Load DimCampaign\Derived Column.Inputs[Derived Column Input].Columns[end_date]"
+                      refId="Package\Load DimCampaign\DC_DimCampaign.Inputs[Data Conversion Input].Columns[end_date]"
+                      cachedDataType="dbDate"
+                      cachedName="end_date"
+                      lineageId="Package\Load DimCampaign\SRC_StgCampaigns.Outputs[OLE DB Source Output].Columns[end_date]" />
+                    <inputColumn
+                      refId="Package\Load DimCampaign\DC_DimCampaign.Inputs[Data Conversion Input].Columns[duration_days]"
+                      cachedDataType="ui1"
+                      cachedName="duration_days"
+                      lineageId="Package\Load DimCampaign\SRC_StgCampaigns.Outputs[OLE DB Source Output].Columns[duration_days]" />
+                    <inputColumn
+                      refId="Package\Load DimCampaign\DC_DimCampaign.Inputs[Data Conversion Input].Columns[total_budget]"
+                      cachedDataType="r8"
+                      cachedName="total_budget"
+                      lineageId="Package\Load DimCampaign\SRC_StgCampaigns.Outputs[OLE DB Source Output].Columns[total_budget]" />
+                    <inputColumn
+                      refId="Package\Load DimCampaign\DC_DimCampaign.Inputs[Data Conversion Input].Columns[StartDateKey]"
+                      cachedDataType="i4"
+                      cachedName="StartDateKey"
+                      lineageId="Package\Load DimCampaign\DRV_CampaignDates.Outputs[Derived Column Output].Columns[StartDateKey]" />
+                    <inputColumn
+                      refId="Package\Load DimCampaign\DC_DimCampaign.Inputs[Data Conversion Input].Columns[EndDateKey]"
+                      cachedDataType="i4"
+                      cachedName="EndDateKey"
+                      lineageId="Package\Load DimCampaign\DRV_CampaignDates.Outputs[Derived Column Output].Columns[EndDateKey]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load DimCampaign\DC_DimCampaign.Outputs[Data Conversion Output]"
+                  exclusionGroup="1"
+                  name="Data Conversion Output"
+                  synchronousInputId="Package\Load DimCampaign\DC_DimCampaign.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load DimCampaign\DC_DimCampaign.Outputs[Data Conversion Output].Columns[Copy of campaign_id]"
+                      dataType="i2"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Load DimCampaign\DC_DimCampaign.Outputs[Data Conversion Output].Columns[Copy of campaign_id]"
+                      name="Copy of campaign_id"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Load DimCampaign\SRC_StgCampaigns.Outputs[OLE DB Source Output].Columns[campaign_id]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load DimCampaign\DC_DimCampaign.Outputs[Data Conversion Output].Columns[name_s]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="150"
+                      lineageId="Package\Load DimCampaign\DC_DimCampaign.Outputs[Data Conversion Output].Columns[name_s]"
+                      name="name_s"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Load DimCampaign\SRC_StgCampaigns.Outputs[OLE DB Source Output].Columns[name]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load DimCampaign\DC_DimCampaign.Outputs[Data Conversion Output].Columns[Copy of start_date]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Load DimCampaign\DC_DimCampaign.Outputs[Data Conversion Output].Columns[Copy of start_date]"
+                      name="Copy of start_date"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Load DimCampaign\SRC_StgCampaigns.Outputs[OLE DB Source Output].Columns[start_date]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load DimCampaign\DC_DimCampaign.Outputs[Data Conversion Output].Columns[Copy of end_date]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Load DimCampaign\DC_DimCampaign.Outputs[Data Conversion Output].Columns[Copy of end_date]"
+                      name="Copy of end_date"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Load DimCampaign\SRC_StgCampaigns.Outputs[OLE DB Source Output].Columns[end_date]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load DimCampaign\DC_DimCampaign.Outputs[Data Conversion Output].Columns[Copy of duration_days]"
+                      dataType="ui1"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Load DimCampaign\DC_DimCampaign.Outputs[Data Conversion Output].Columns[Copy of duration_days]"
+                      name="Copy of duration_days"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Load DimCampaign\SRC_StgCampaigns.Outputs[OLE DB Source Output].Columns[duration_days]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load DimCampaign\DC_DimCampaign.Outputs[Data Conversion Output].Columns[Copy of total_budget]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Load DimCampaign\DC_DimCampaign.Outputs[Data Conversion Output].Columns[Copy of total_budget]"
+                      name="Copy of total_budget"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Load DimCampaign\SRC_StgCampaigns.Outputs[OLE DB Source Output].Columns[total_budget]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load DimCampaign\DC_DimCampaign.Outputs[Data Conversion Output].Columns[Copy of StartDateKey]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Load DimCampaign\DC_DimCampaign.Outputs[Data Conversion Output].Columns[Copy of StartDateKey]"
+                      name="Copy of StartDateKey"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Load DimCampaign\DRV_CampaignDates.Outputs[Derived Column Output].Columns[StartDateKey]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load DimCampaign\DC_DimCampaign.Outputs[Data Conversion Output].Columns[Copy of EndDateKey]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Load DimCampaign\DC_DimCampaign.Outputs[Data Conversion Output].Columns[Copy of EndDateKey]"
+                      name="Copy of EndDateKey"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Load DimCampaign\DRV_CampaignDates.Outputs[Derived Column Output].Columns[EndDateKey]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load DimCampaign\DC_DimCampaign.Outputs[Data Conversion Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Data Conversion Error Output"
+                  synchronousInputId="Package\Load DimCampaign\DC_DimCampaign.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load DimCampaign\DC_DimCampaign.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load DimCampaign\DC_DimCampaign.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load DimCampaign\DC_DimCampaign.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load DimCampaign\DC_DimCampaign.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load DimCampaign\DRV_CampaignDates"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="DRV_CampaignDates"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Load DimCampaign\DRV_CampaignDates.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load DimCampaign\DRV_CampaignDates.Inputs[Derived Column Input].Columns[start_date]"
+                      cachedDataType="dbDate"
+                      cachedName="start_date"
+                      lineageId="Package\Load DimCampaign\SRC_StgCampaigns.Outputs[OLE DB Source Output].Columns[start_date]" />
+                    <inputColumn
+                      refId="Package\Load DimCampaign\DRV_CampaignDates.Inputs[Derived Column Input].Columns[end_date]"
                       cachedDataType="dbDate"
                       cachedName="end_date"
                       lineageId="Package\Load DimCampaign\SRC_StgCampaigns.Outputs[OLE DB Source Output].Columns[end_date]" />
@@ -2469,18 +3192,18 @@ where [refTable].[UserNK] = ?</property>
               </inputs>
               <outputs>
                 <output
-                  refId="Package\Load DimCampaign\Derived Column.Outputs[Derived Column Output]"
+                  refId="Package\Load DimCampaign\DRV_CampaignDates.Outputs[Derived Column Output]"
                   description="Default Output of the Derived Column Transformation"
                   exclusionGroup="1"
                   name="Derived Column Output"
-                  synchronousInputId="Package\Load DimCampaign\Derived Column.Inputs[Derived Column Input]">
+                  synchronousInputId="Package\Load DimCampaign\DRV_CampaignDates.Inputs[Derived Column Input]">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\Load DimCampaign\Derived Column.Outputs[Derived Column Output].Columns[StartDateKey]"
+                      refId="Package\Load DimCampaign\DRV_CampaignDates.Outputs[Derived Column Output].Columns[StartDateKey]"
                       dataType="i4"
                       errorOrTruncationOperation="Computation"
                       errorRowDisposition="FailComponent"
-                      lineageId="Package\Load DimCampaign\Derived Column.Outputs[Derived Column Output].Columns[StartDateKey]"
+                      lineageId="Package\Load DimCampaign\DRV_CampaignDates.Outputs[Derived Column Output].Columns[StartDateKey]"
                       name="StartDateKey"
                       truncationRowDisposition="FailComponent">
                       <properties>
@@ -2498,11 +3221,11 @@ where [refTable].[UserNK] = ?</property>
                       </properties>
                     </outputColumn>
                     <outputColumn
-                      refId="Package\Load DimCampaign\Derived Column.Outputs[Derived Column Output].Columns[EndDateKey]"
+                      refId="Package\Load DimCampaign\DRV_CampaignDates.Outputs[Derived Column Output].Columns[EndDateKey]"
                       dataType="i4"
                       errorOrTruncationOperation="Computation"
                       errorRowDisposition="FailComponent"
-                      lineageId="Package\Load DimCampaign\Derived Column.Outputs[Derived Column Output].Columns[EndDateKey]"
+                      lineageId="Package\Load DimCampaign\DRV_CampaignDates.Outputs[Derived Column Output].Columns[EndDateKey]"
                       name="EndDateKey"
                       truncationRowDisposition="FailComponent">
                       <properties>
@@ -2523,23 +3246,23 @@ where [refTable].[UserNK] = ?</property>
                   <externalMetadataColumns />
                 </output>
                 <output
-                  refId="Package\Load DimCampaign\Derived Column.Outputs[Derived Column Error Output]"
+                  refId="Package\Load DimCampaign\DRV_CampaignDates.Outputs[Derived Column Error Output]"
                   description="Error Output of the Derived Column Transformation"
                   exclusionGroup="1"
                   isErrorOut="true"
                   name="Derived Column Error Output"
-                  synchronousInputId="Package\Load DimCampaign\Derived Column.Inputs[Derived Column Input]">
+                  synchronousInputId="Package\Load DimCampaign\DRV_CampaignDates.Inputs[Derived Column Input]">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\Load DimCampaign\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      refId="Package\Load DimCampaign\DRV_CampaignDates.Outputs[Derived Column Error Output].Columns[ErrorCode]"
                       dataType="i4"
-                      lineageId="Package\Load DimCampaign\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      lineageId="Package\Load DimCampaign\DRV_CampaignDates.Outputs[Derived Column Error Output].Columns[ErrorCode]"
                       name="ErrorCode"
                       specialFlags="1" />
                     <outputColumn
-                      refId="Package\Load DimCampaign\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      refId="Package\Load DimCampaign\DRV_CampaignDates.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
                       dataType="i4"
-                      lineageId="Package\Load DimCampaign\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      lineageId="Package\Load DimCampaign\DRV_CampaignDates.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
                       name="ErrorColumn"
                       specialFlags="2" />
                   </outputColumns>
@@ -2548,11 +3271,11 @@ where [refTable].[UserNK] = ?</property>
               </outputs>
             </component>
             <component
-              refId="Package\Load DimCampaign\OLE DB Destination"
+              refId="Package\Load DimCampaign\DST_DimCampaign"
               componentClassID="Microsoft.OLEDBDestination"
               contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
               description="OLE DB Destination"
-              name="OLE DB Destination"
+              name="DST_DimCampaign"
               usesDispositions="true"
               version="4">
               <properties>
@@ -2605,7 +3328,7 @@ where [refTable].[UserNK] = ?</property>
               </properties>
               <connections>
                 <connection
-                  refId="Package\Load DimCampaign\OLE DB Destination.Connections[OleDbConnection]"
+                  refId="Package\Load DimCampaign\DST_DimCampaign.Connections[OleDbConnection]"
                   connectionManagerID="Package.ConnectionManagers[CM_DW]"
                   connectionManagerRefId="Package.ConnectionManagers[CM_DW]"
                   description="The OLE DB runtime connection used to access the database."
@@ -2613,80 +3336,79 @@ where [refTable].[UserNK] = ?</property>
               </connections>
               <inputs>
                 <input
-                  refId="Package\Load DimCampaign\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  refId="Package\Load DimCampaign\DST_DimCampaign.Inputs[OLE DB Destination Input]"
                   errorOrTruncationOperation="Insert"
                   errorRowDisposition="FailComponent"
                   hasSideEffects="true"
                   name="OLE DB Destination Input">
                   <inputColumns>
                     <inputColumn
-                      refId="Package\Load DimCampaign\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[EndDateKey]"
-                      cachedDataType="i4"
-                      cachedName="EndDateKey"
-                      externalMetadataColumnId="Package\Load DimCampaign\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[EndDateKey]"
-                      lineageId="Package\Load DimCampaign\Derived Column.Outputs[Derived Column Output].Columns[EndDateKey]" />
-                    <inputColumn
-                      refId="Package\Load DimCampaign\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[campaign_id]"
+                      refId="Package\Load DimCampaign\DST_DimCampaign.Inputs[OLE DB Destination Input].Columns[campaign_id]"
                       cachedDataType="i2"
                       cachedName="campaign_id"
-                      externalMetadataColumnId="Package\Load DimCampaign\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[CampaignNK]"
+                      externalMetadataColumnId="Package\Load DimCampaign\DST_DimCampaign.Inputs[OLE DB Destination Input].ExternalColumns[CampaignNK]"
                       lineageId="Package\Load DimCampaign\SRC_StgCampaigns.Outputs[OLE DB Source Output].Columns[campaign_id]" />
                     <inputColumn
-                      refId="Package\Load DimCampaign\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[name]"
+                      refId="Package\Load DimCampaign\DST_DimCampaign.Inputs[OLE DB Destination Input].Columns[name]"
                       cachedDataType="wstr"
                       cachedLength="50"
                       cachedName="name"
-                      externalMetadataColumnId="Package\Load DimCampaign\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[CampaignName]"
+                      externalMetadataColumnId="Package\Load DimCampaign\DST_DimCampaign.Inputs[OLE DB Destination Input].ExternalColumns[CampaignName]"
                       lineageId="Package\Load DimCampaign\SRC_StgCampaigns.Outputs[OLE DB Source Output].Columns[name]" />
                     <inputColumn
-                      refId="Package\Load DimCampaign\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[StartDateKey]"
+                      refId="Package\Load DimCampaign\DST_DimCampaign.Inputs[OLE DB Destination Input].Columns[StartDateKey]"
                       cachedDataType="i4"
                       cachedName="StartDateKey"
-                      externalMetadataColumnId="Package\Load DimCampaign\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[StartDateKey]"
-                      lineageId="Package\Load DimCampaign\Derived Column.Outputs[Derived Column Output].Columns[StartDateKey]" />
+                      externalMetadataColumnId="Package\Load DimCampaign\DST_DimCampaign.Inputs[OLE DB Destination Input].ExternalColumns[StartDateKey]"
+                      lineageId="Package\Load DimCampaign\DRV_CampaignDates.Outputs[Derived Column Output].Columns[StartDateKey]" />
                     <inputColumn
-                      refId="Package\Load DimCampaign\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[duration_days]"
+                      refId="Package\Load DimCampaign\DST_DimCampaign.Inputs[OLE DB Destination Input].Columns[EndDateKey]"
+                      cachedDataType="i4"
+                      cachedName="EndDateKey"
+                      externalMetadataColumnId="Package\Load DimCampaign\DST_DimCampaign.Inputs[OLE DB Destination Input].ExternalColumns[EndDateKey]"
+                      lineageId="Package\Load DimCampaign\DRV_CampaignDates.Outputs[Derived Column Output].Columns[EndDateKey]" />
+                    <inputColumn
+                      refId="Package\Load DimCampaign\DST_DimCampaign.Inputs[OLE DB Destination Input].Columns[duration_days]"
                       cachedDataType="ui1"
                       cachedName="duration_days"
-                      externalMetadataColumnId="Package\Load DimCampaign\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DurationDays]"
+                      externalMetadataColumnId="Package\Load DimCampaign\DST_DimCampaign.Inputs[OLE DB Destination Input].ExternalColumns[DurationDays]"
                       lineageId="Package\Load DimCampaign\SRC_StgCampaigns.Outputs[OLE DB Source Output].Columns[duration_days]" />
                     <inputColumn
-                      refId="Package\Load DimCampaign\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[total_budget]"
+                      refId="Package\Load DimCampaign\DST_DimCampaign.Inputs[OLE DB Destination Input].Columns[total_budget]"
                       cachedDataType="r8"
                       cachedName="total_budget"
-                      externalMetadataColumnId="Package\Load DimCampaign\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[TotalBudget]"
+                      externalMetadataColumnId="Package\Load DimCampaign\DST_DimCampaign.Inputs[OLE DB Destination Input].ExternalColumns[TotalBudget]"
                       lineageId="Package\Load DimCampaign\SRC_StgCampaigns.Outputs[OLE DB Source Output].Columns[total_budget]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
                     <externalMetadataColumn
-                      refId="Package\Load DimCampaign\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[CampaignKey]"
+                      refId="Package\Load DimCampaign\DST_DimCampaign.Inputs[OLE DB Destination Input].ExternalColumns[CampaignKey]"
                       dataType="i4"
                       name="CampaignKey" />
                     <externalMetadataColumn
-                      refId="Package\Load DimCampaign\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[CampaignNK]"
+                      refId="Package\Load DimCampaign\DST_DimCampaign.Inputs[OLE DB Destination Input].ExternalColumns[CampaignNK]"
                       dataType="i4"
                       name="CampaignNK" />
                     <externalMetadataColumn
-                      refId="Package\Load DimCampaign\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[CampaignName]"
-                      codePage="1252"
-                      dataType="str"
+                      refId="Package\Load DimCampaign\DST_DimCampaign.Inputs[OLE DB Destination Input].ExternalColumns[CampaignName]"
+                      dataType="wstr"
                       length="150"
                       name="CampaignName" />
                     <externalMetadataColumn
-                      refId="Package\Load DimCampaign\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[StartDateKey]"
+                      refId="Package\Load DimCampaign\DST_DimCampaign.Inputs[OLE DB Destination Input].ExternalColumns[StartDateKey]"
                       dataType="i4"
                       name="StartDateKey" />
                     <externalMetadataColumn
-                      refId="Package\Load DimCampaign\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[EndDateKey]"
+                      refId="Package\Load DimCampaign\DST_DimCampaign.Inputs[OLE DB Destination Input].ExternalColumns[EndDateKey]"
                       dataType="i4"
                       name="EndDateKey" />
                     <externalMetadataColumn
-                      refId="Package\Load DimCampaign\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DurationDays]"
+                      refId="Package\Load DimCampaign\DST_DimCampaign.Inputs[OLE DB Destination Input].ExternalColumns[DurationDays]"
                       dataType="i4"
                       name="DurationDays" />
                     <externalMetadataColumn
-                      refId="Package\Load DimCampaign\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[TotalBudget]"
+                      refId="Package\Load DimCampaign\DST_DimCampaign.Inputs[OLE DB Destination Input].ExternalColumns[TotalBudget]"
                       dataType="numeric"
                       name="TotalBudget"
                       precision="18"
@@ -2696,22 +3418,22 @@ where [refTable].[UserNK] = ?</property>
               </inputs>
               <outputs>
                 <output
-                  refId="Package\Load DimCampaign\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                  refId="Package\Load DimCampaign\DST_DimCampaign.Outputs[OLE DB Destination Error Output]"
                   exclusionGroup="1"
                   isErrorOut="true"
                   name="OLE DB Destination Error Output"
-                  synchronousInputId="Package\Load DimCampaign\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                  synchronousInputId="Package\Load DimCampaign\DST_DimCampaign.Inputs[OLE DB Destination Input]">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\Load DimCampaign\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      refId="Package\Load DimCampaign\DST_DimCampaign.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
                       dataType="i4"
-                      lineageId="Package\Load DimCampaign\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      lineageId="Package\Load DimCampaign\DST_DimCampaign.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
                       name="ErrorCode"
                       specialFlags="1" />
                     <outputColumn
-                      refId="Package\Load DimCampaign\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      refId="Package\Load DimCampaign\DST_DimCampaign.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
                       dataType="i4"
-                      lineageId="Package\Load DimCampaign\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      lineageId="Package\Load DimCampaign\DST_DimCampaign.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
                       name="ErrorColumn"
                       specialFlags="2" />
                   </outputColumns>
@@ -2921,13 +3643,18 @@ where [refTable].[UserNK] = ?</property>
           </components>
           <paths>
             <path
+              refId="Package\Load DimCampaign.Paths[Data Conversion Output]"
+              endId="Package\Load DimCampaign\DST_DimCampaign.Inputs[OLE DB Destination Input]"
+              name="Data Conversion Output"
+              startId="Package\Load DimCampaign\DC_DimCampaign.Outputs[Data Conversion Output]" />
+            <path
               refId="Package\Load DimCampaign.Paths[Derived Column Output]"
-              endId="Package\Load DimCampaign\OLE DB Destination.Inputs[OLE DB Destination Input]"
+              endId="Package\Load DimCampaign\DC_DimCampaign.Inputs[Data Conversion Input]"
               name="Derived Column Output"
-              startId="Package\Load DimCampaign\Derived Column.Outputs[Derived Column Output]" />
+              startId="Package\Load DimCampaign\DRV_CampaignDates.Outputs[Derived Column Output]" />
             <path
               refId="Package\Load DimCampaign.Paths[OLE DB Source Output]"
-              endId="Package\Load DimCampaign\Derived Column.Inputs[Derived Column Input]"
+              endId="Package\Load DimCampaign\DRV_CampaignDates.Inputs[Derived Column Input]"
               name="OLE DB Source Output"
               startId="Package\Load DimCampaign\SRC_StgCampaigns.Outputs[OLE DB Source Output]" />
           </paths>
@@ -2948,6 +3675,287 @@ where [refTable].[UserNK] = ?</property>
         <pipeline
           version="1">
           <components>
+            <component
+              refId="Package\Load DimUser Initial\DC_DimUserInitial"
+              componentClassID="Microsoft.DataConvert"
+              contactInfo="Data Conversion;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Data Conversion"
+              name="DC_DimUserInitial"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Load DimUser Initial\DC_DimUserInitial.Inputs[Data Conversion Input]"
+                  name="Data Conversion Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load DimUser Initial\DC_DimUserInitial.Inputs[Data Conversion Input].Columns[user_id]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="user_id"
+                      lineageId="Package\Load DimUser Initial\SRC_StgUsers.Outputs[OLE DB Source Output].Columns[user_id]" />
+                    <inputColumn
+                      refId="Package\Load DimUser Initial\DC_DimUserInitial.Inputs[Data Conversion Input].Columns[user_gender]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="user_gender"
+                      lineageId="Package\Load DimUser Initial\SRC_StgUsers.Outputs[OLE DB Source Output].Columns[user_gender]" />
+                    <inputColumn
+                      refId="Package\Load DimUser Initial\DC_DimUserInitial.Inputs[Data Conversion Input].Columns[user_age]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="user_age"
+                      lineageId="Package\Load DimUser Initial\SRC_StgUsers.Outputs[OLE DB Source Output].Columns[user_age]" />
+                    <inputColumn
+                      refId="Package\Load DimUser Initial\DC_DimUserInitial.Inputs[Data Conversion Input].Columns[age_group]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="age_group"
+                      lineageId="Package\Load DimUser Initial\SRC_StgUsers.Outputs[OLE DB Source Output].Columns[age_group]" />
+                    <inputColumn
+                      refId="Package\Load DimUser Initial\DC_DimUserInitial.Inputs[Data Conversion Input].Columns[country]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="country"
+                      lineageId="Package\Load DimUser Initial\SRC_StgUsers.Outputs[OLE DB Source Output].Columns[country]" />
+                    <inputColumn
+                      refId="Package\Load DimUser Initial\DC_DimUserInitial.Inputs[Data Conversion Input].Columns[location]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="location"
+                      lineageId="Package\Load DimUser Initial\SRC_StgUsers.Outputs[OLE DB Source Output].Columns[location]" />
+                    <inputColumn
+                      refId="Package\Load DimUser Initial\DC_DimUserInitial.Inputs[Data Conversion Input].Columns[interests]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="interests"
+                      lineageId="Package\Load DimUser Initial\SRC_StgUsers.Outputs[OLE DB Source Output].Columns[interests]" />
+                    <inputColumn
+                      refId="Package\Load DimUser Initial\DC_DimUserInitial.Inputs[Data Conversion Input].Columns[PrimaryInterest]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="PrimaryInterest"
+                      lineageId="Package\Load DimUser Initial\DRV_UserAudit.Outputs[Derived Column Output].Columns[PrimaryInterest]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load DimUser Initial\DC_DimUserInitial.Outputs[Data Conversion Output]"
+                  exclusionGroup="1"
+                  name="Data Conversion Output"
+                  synchronousInputId="Package\Load DimUser Initial\DC_DimUserInitial.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load DimUser Initial\DC_DimUserInitial.Outputs[Data Conversion Output].Columns[user_id_s]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="50"
+                      lineageId="Package\Load DimUser Initial\DC_DimUserInitial.Outputs[Data Conversion Output].Columns[user_id_s]"
+                      name="user_id_s"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Load DimUser Initial\SRC_StgUsers.Outputs[OLE DB Source Output].Columns[user_id]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load DimUser Initial\DC_DimUserInitial.Outputs[Data Conversion Output].Columns[user_gender_s]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="20"
+                      lineageId="Package\Load DimUser Initial\DC_DimUserInitial.Outputs[Data Conversion Output].Columns[user_gender_s]"
+                      name="user_gender_s"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Load DimUser Initial\SRC_StgUsers.Outputs[OLE DB Source Output].Columns[user_gender]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load DimUser Initial\DC_DimUserInitial.Outputs[Data Conversion Output].Columns[Copy of user_age]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="50"
+                      lineageId="Package\Load DimUser Initial\DC_DimUserInitial.Outputs[Data Conversion Output].Columns[Copy of user_age]"
+                      name="Copy of user_age"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Load DimUser Initial\SRC_StgUsers.Outputs[OLE DB Source Output].Columns[user_age]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load DimUser Initial\DC_DimUserInitial.Outputs[Data Conversion Output].Columns[age_group_s]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="20"
+                      lineageId="Package\Load DimUser Initial\DC_DimUserInitial.Outputs[Data Conversion Output].Columns[age_group_s]"
+                      name="age_group_s"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Load DimUser Initial\SRC_StgUsers.Outputs[OLE DB Source Output].Columns[age_group]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load DimUser Initial\DC_DimUserInitial.Outputs[Data Conversion Output].Columns[country_s]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="100"
+                      lineageId="Package\Load DimUser Initial\DC_DimUserInitial.Outputs[Data Conversion Output].Columns[country_s]"
+                      name="country_s"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Load DimUser Initial\SRC_StgUsers.Outputs[OLE DB Source Output].Columns[country]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load DimUser Initial\DC_DimUserInitial.Outputs[Data Conversion Output].Columns[location_s]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="150"
+                      lineageId="Package\Load DimUser Initial\DC_DimUserInitial.Outputs[Data Conversion Output].Columns[location_s]"
+                      name="location_s"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Load DimUser Initial\SRC_StgUsers.Outputs[OLE DB Source Output].Columns[location]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load DimUser Initial\DC_DimUserInitial.Outputs[Data Conversion Output].Columns[interests_s]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="255"
+                      lineageId="Package\Load DimUser Initial\DC_DimUserInitial.Outputs[Data Conversion Output].Columns[interests_s]"
+                      name="interests_s"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Load DimUser Initial\SRC_StgUsers.Outputs[OLE DB Source Output].Columns[interests]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load DimUser Initial\DC_DimUserInitial.Outputs[Data Conversion Output].Columns[PrimaryInterest_s]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="100"
+                      lineageId="Package\Load DimUser Initial\DC_DimUserInitial.Outputs[Data Conversion Output].Columns[PrimaryInterest_s]"
+                      name="PrimaryInterest_s"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Load DimUser Initial\DRV_UserAudit.Outputs[Derived Column Output].Columns[PrimaryInterest]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load DimUser Initial\DC_DimUserInitial.Outputs[Data Conversion Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Data Conversion Error Output"
+                  synchronousInputId="Package\Load DimUser Initial\DC_DimUserInitial.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load DimUser Initial\DC_DimUserInitial.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load DimUser Initial\DC_DimUserInitial.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load DimUser Initial\DC_DimUserInitial.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load DimUser Initial\DC_DimUserInitial.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
             <component
               refId="Package\Load DimUser Initial\DRV_UserAudit"
               componentClassID="Microsoft.DerivedColumn"
@@ -3148,69 +4156,6 @@ where [refTable].[UserNK] = ?</property>
                   name="OLE DB Destination Input">
                   <inputColumns>
                     <inputColumn
-                      refId="Package\Load DimUser Initial\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[country]"
-                      cachedCodepage="1252"
-                      cachedDataType="str"
-                      cachedLength="50"
-                      cachedName="country"
-                      externalMetadataColumnId="Package\Load DimUser Initial\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Country]"
-                      lineageId="Package\Load DimUser Initial\SRC_StgUsers.Outputs[OLE DB Source Output].Columns[country]" />
-                    <inputColumn
-                      refId="Package\Load DimUser Initial\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[location]"
-                      cachedCodepage="1252"
-                      cachedDataType="str"
-                      cachedLength="50"
-                      cachedName="location"
-                      externalMetadataColumnId="Package\Load DimUser Initial\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Location]"
-                      lineageId="Package\Load DimUser Initial\SRC_StgUsers.Outputs[OLE DB Source Output].Columns[location]" />
-                    <inputColumn
-                      refId="Package\Load DimUser Initial\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[PrimaryInterest]"
-                      cachedDataType="wstr"
-                      cachedLength="50"
-                      cachedName="PrimaryInterest"
-                      externalMetadataColumnId="Package\Load DimUser Initial\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[PrimaryInterest]"
-                      lineageId="Package\Load DimUser Initial\DRV_UserAudit.Outputs[Derived Column Output].Columns[PrimaryInterest]" />
-                    <inputColumn
-                      refId="Package\Load DimUser Initial\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[user_id]"
-                      cachedCodepage="1252"
-                      cachedDataType="str"
-                      cachedLength="50"
-                      cachedName="user_id"
-                      externalMetadataColumnId="Package\Load DimUser Initial\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[UserNK]"
-                      lineageId="Package\Load DimUser Initial\SRC_StgUsers.Outputs[OLE DB Source Output].Columns[user_id]" />
-                    <inputColumn
-                      refId="Package\Load DimUser Initial\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[user_gender]"
-                      cachedCodepage="1252"
-                      cachedDataType="str"
-                      cachedLength="50"
-                      cachedName="user_gender"
-                      externalMetadataColumnId="Package\Load DimUser Initial\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[UserGender]"
-                      lineageId="Package\Load DimUser Initial\SRC_StgUsers.Outputs[OLE DB Source Output].Columns[user_gender]" />
-                    <inputColumn
-                      refId="Package\Load DimUser Initial\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[user_age]"
-                      cachedCodepage="1252"
-                      cachedDataType="str"
-                      cachedLength="50"
-                      cachedName="user_age"
-                      externalMetadataColumnId="Package\Load DimUser Initial\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[UserAge]"
-                      lineageId="Package\Load DimUser Initial\SRC_StgUsers.Outputs[OLE DB Source Output].Columns[user_age]" />
-                    <inputColumn
-                      refId="Package\Load DimUser Initial\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[age_group]"
-                      cachedCodepage="1252"
-                      cachedDataType="str"
-                      cachedLength="50"
-                      cachedName="age_group"
-                      externalMetadataColumnId="Package\Load DimUser Initial\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[AgeGroup]"
-                      lineageId="Package\Load DimUser Initial\SRC_StgUsers.Outputs[OLE DB Source Output].Columns[age_group]" />
-                    <inputColumn
-                      refId="Package\Load DimUser Initial\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[interests]"
-                      cachedCodepage="1252"
-                      cachedDataType="str"
-                      cachedLength="50"
-                      cachedName="interests"
-                      externalMetadataColumnId="Package\Load DimUser Initial\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[AllInterests]"
-                      lineageId="Package\Load DimUser Initial\SRC_StgUsers.Outputs[OLE DB Source Output].Columns[interests]" />
-                    <inputColumn
                       refId="Package\Load DimUser Initial\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[ValidFrom]"
                       cachedDataType="dbTimeStamp"
                       cachedName="ValidFrom"
@@ -3222,6 +4167,70 @@ where [refTable].[UserNK] = ?</property>
                       cachedName="IsCurrent"
                       externalMetadataColumnId="Package\Load DimUser Initial\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[IsCurrent]"
                       lineageId="Package\Load DimUser Initial\DRV_UserAudit.Outputs[Derived Column Output].Columns[IsCurrent]" />
+                    <inputColumn
+                      refId="Package\Load DimUser Initial\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[user_id_s]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="user_id_s"
+                      externalMetadataColumnId="Package\Load DimUser Initial\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[UserNK]"
+                      lineageId="Package\Load DimUser Initial\DC_DimUserInitial.Outputs[Data Conversion Output].Columns[user_id_s]" />
+                    <inputColumn
+                      refId="Package\Load DimUser Initial\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[user_gender_s]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="user_gender_s"
+                      externalMetadataColumnId="Package\Load DimUser Initial\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[UserGender]"
+                      lineageId="Package\Load DimUser Initial\DC_DimUserInitial.Outputs[Data Conversion Output].Columns[user_gender_s]" />
+                    <inputColumn
+                      refId="Package\Load DimUser Initial\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[user_age]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="user_age"
+                      externalMetadataColumnId="Package\Load DimUser Initial\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[UserAge]"
+                      lineageId="Package\Load DimUser Initial\SRC_StgUsers.Outputs[OLE DB Source Output].Columns[user_age]" />
+                    <inputColumn
+                      refId="Package\Load DimUser Initial\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[age_group_s]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="age_group_s"
+                      externalMetadataColumnId="Package\Load DimUser Initial\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[AgeGroup]"
+                      lineageId="Package\Load DimUser Initial\DC_DimUserInitial.Outputs[Data Conversion Output].Columns[age_group_s]" />
+                    <inputColumn
+                      refId="Package\Load DimUser Initial\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[country_s]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="100"
+                      cachedName="country_s"
+                      externalMetadataColumnId="Package\Load DimUser Initial\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Country]"
+                      lineageId="Package\Load DimUser Initial\DC_DimUserInitial.Outputs[Data Conversion Output].Columns[country_s]" />
+                    <inputColumn
+                      refId="Package\Load DimUser Initial\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[location_s]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="150"
+                      cachedName="location_s"
+                      externalMetadataColumnId="Package\Load DimUser Initial\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Location]"
+                      lineageId="Package\Load DimUser Initial\DC_DimUserInitial.Outputs[Data Conversion Output].Columns[location_s]" />
+                    <inputColumn
+                      refId="Package\Load DimUser Initial\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[PrimaryInterest_s]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="100"
+                      cachedName="PrimaryInterest_s"
+                      externalMetadataColumnId="Package\Load DimUser Initial\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[PrimaryInterest]"
+                      lineageId="Package\Load DimUser Initial\DC_DimUserInitial.Outputs[Data Conversion Output].Columns[PrimaryInterest_s]" />
+                    <inputColumn
+                      refId="Package\Load DimUser Initial\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[interests_s]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="interests_s"
+                      externalMetadataColumnId="Package\Load DimUser Initial\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[AllInterests]"
+                      lineageId="Package\Load DimUser Initial\DC_DimUserInitial.Outputs[Data Conversion Output].Columns[interests_s]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -3340,7 +4349,16 @@ where [refTable].[UserNK] = ?</property>
                   dataType="System.String"
                   description="The SQL command to be executed."
                   name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT
+    user_id,
+    MAX(user_gender) AS user_gender,
+    MAX(user_age) AS user_age,
+    MAX(age_group) AS age_group,
+    MAX(country) AS country,
+    MAX(location) AS location,
+    MAX(interests) AS interests
+FROM dbo.StgUsers
+GROUP BY user_id;</property>
                 <property
                   dataType="System.String"
                   description="The variable that contains the SQL command to be executed."
@@ -3357,7 +4375,7 @@ where [refTable].[UserNK] = ?</property>
                   dataType="System.Int32"
                   description="Specifies the mode used to access the database."
                   name="AccessMode"
-                  typeConverter="AccessMode">0</property>
+                  typeConverter="AccessMode">2</property>
                 <property
                   dataType="System.String"
                   description="The mappings between the parameters in the SQL command and variables."
@@ -3453,17 +4471,6 @@ where [refTable].[UserNK] = ?</property>
                       lineageId="Package\Load DimUser Initial\SRC_StgUsers.Outputs[OLE DB Source Output].Columns[interests]"
                       name="interests"
                       truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\Load DimUser Initial\SRC_StgUsers.Outputs[OLE DB Source Output].Columns[primary_interest]"
-                      codePage="1252"
-                      dataType="str"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Load DimUser Initial\SRC_StgUsers.Outputs[OLE DB Source Output].ExternalColumns[primary_interest]"
-                      length="50"
-                      lineageId="Package\Load DimUser Initial\SRC_StgUsers.Outputs[OLE DB Source Output].Columns[primary_interest]"
-                      name="primary_interest"
-                      truncationRowDisposition="FailComponent" />
                   </outputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -3509,12 +4516,6 @@ where [refTable].[UserNK] = ?</property>
                       dataType="str"
                       length="50"
                       name="interests" />
-                    <externalMetadataColumn
-                      refId="Package\Load DimUser Initial\SRC_StgUsers.Outputs[OLE DB Source Output].ExternalColumns[primary_interest]"
-                      codePage="1252"
-                      dataType="str"
-                      length="50"
-                      name="primary_interest" />
                   </externalMetadataColumns>
                 </output>
                 <output
@@ -3572,13 +4573,6 @@ where [refTable].[UserNK] = ?</property>
                       lineageId="Package\Load DimUser Initial\SRC_StgUsers.Outputs[OLE DB Source Error Output].Columns[interests]"
                       name="interests" />
                     <outputColumn
-                      refId="Package\Load DimUser Initial\SRC_StgUsers.Outputs[OLE DB Source Error Output].Columns[primary_interest]"
-                      codePage="1252"
-                      dataType="str"
-                      length="50"
-                      lineageId="Package\Load DimUser Initial\SRC_StgUsers.Outputs[OLE DB Source Error Output].Columns[primary_interest]"
-                      name="primary_interest" />
-                    <outputColumn
                       refId="Package\Load DimUser Initial\SRC_StgUsers.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
                       dataType="i4"
                       lineageId="Package\Load DimUser Initial\SRC_StgUsers.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
@@ -3598,8 +4592,13 @@ where [refTable].[UserNK] = ?</property>
           </components>
           <paths>
             <path
-              refId="Package\Load DimUser Initial.Paths[Derived Column Output]"
+              refId="Package\Load DimUser Initial.Paths[Data Conversion Output]"
               endId="Package\Load DimUser Initial\OLE DB Destination.Inputs[OLE DB Destination Input]"
+              name="Data Conversion Output"
+              startId="Package\Load DimUser Initial\DC_DimUserInitial.Outputs[Data Conversion Output]" />
+            <path
+              refId="Package\Load DimUser Initial.Paths[Derived Column Output]"
+              endId="Package\Load DimUser Initial\DC_DimUserInitial.Inputs[Data Conversion Input]"
               name="Derived Column Output"
               startId="Package\Load DimUser Initial\DRV_UserAudit.Outputs[Derived Column Output]" />
             <path
@@ -5284,7 +6283,7 @@ INNER JOIN (
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
           SQLTask:Connection="{E84821E2-DD63-4871-99BB-06BCA9B88FBA}"
-          SQLTask:SqlStatementSource="TRUNCATE TABLE dbo.DimAd;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          SQLTask:SqlStatementSource="DELETE FROM dbo.DimAd;&#xA;DBCC CHECKIDENT ('dbo.DimAd', RESEED, 0);" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
     <DTS:Executable
@@ -5301,7 +6300,7 @@ INNER JOIN (
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
           SQLTask:Connection="{E84821E2-DD63-4871-99BB-06BCA9B88FBA}"
-          SQLTask:SqlStatementSource="TRUNCATE TABLE dbo.DimCampaign;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          SQLTask:SqlStatementSource="DELETE FROM dbo.DimCampaign;&#xA;DBCC CHECKIDENT ('dbo.DimCampaign', RESEED, 0);" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
     <DTS:Executable
@@ -5318,7 +6317,7 @@ INNER JOIN (
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
           SQLTask:Connection="{E84821E2-DD63-4871-99BB-06BCA9B88FBA}"
-          SQLTask:SqlStatementSource="TRUNCATE TABLE dbo.DimUser;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          SQLTask:SqlStatementSource="DELETE FROM dbo.DimUser;&#xA;DBCC CHECKIDENT ('dbo.DimUser', RESEED, 0);" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
     <DTS:Executable
@@ -5351,7 +6350,7 @@ INNER JOIN (
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
-          SQLTask:Connection="{E84821E2-DD63-4871-99BB-06BCA9B88FBA}"
+          SQLTask:Connection="{161E0DFE-4079-41E2-B403-CF1DE51EC361}"
           SQLTask:SqlStatementSource="TRUNCATE TABLE dbo.StgChangedUsers;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
@@ -5360,91 +6359,99 @@ INNER JOIN (
     <DTS:PrecedenceConstraint
       DTS:refId="Package.PrecedenceConstraints[Constraint]"
       DTS:CreationName=""
-      DTS:DTSID="{DD8D8E53-13EC-4B41-870C-B946A3D3DA08}"
-      DTS:From="Package\Load DimCampaign"
+      DTS:DTSID="{B968B254-BDFA-4535-9260-D75FB0BB8A87}"
+      DTS:From="Package\Truncate FactAdEvent"
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint"
       DTS:To="Package\Truncate DimAd" />
     <DTS:PrecedenceConstraint
       DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
       DTS:CreationName=""
-      DTS:DTSID="{9BCBB32D-7494-4E75-9AF6-54FBAB794346}"
+      DTS:DTSID="{6D2C44AC-B3AA-4D06-8B47-26D802D9CFC8}"
       DTS:From="Package\Truncate DimAd"
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint 1"
-      DTS:To="Package\Load DimAd" />
+      DTS:To="Package\Truncate DimCampaign" />
     <DTS:PrecedenceConstraint
       DTS:refId="Package.PrecedenceConstraints[Constraint 10]"
       DTS:CreationName=""
-      DTS:DTSID="{A5142B0F-44DF-4852-942C-11ABD5676F94}"
-      DTS:From="Package\Truncate FactAdEvent"
+      DTS:DTSID="{1D5A59C2-91EA-4CCB-8FEB-19780FC5D491}"
+      DTS:From="Package\Insert New User Versions"
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint 10"
       DTS:To="Package\Load FactAdEvent" />
     <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 11]"
+      DTS:CreationName=""
+      DTS:DTSID="{C9636390-57A2-4823-9874-7EB1CA5F4E22}"
+      DTS:From="Package\Expire Old User Records"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 11"
+      DTS:To="Package\Delete Existing Current Users" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 12]"
+      DTS:CreationName=""
+      DTS:DTSID="{B89E3909-F931-4B80-B382-D0F42CC4078F}"
+      DTS:From="Package\Delete Existing Current Users"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 12"
+      DTS:To="Package\Insert New User Versions" />
+    <DTS:PrecedenceConstraint
       DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
       DTS:CreationName=""
-      DTS:DTSID="{3A37C572-95C9-485E-B3EB-5995F04D1F69}"
-      DTS:From="Package\Load DimAd"
+      DTS:DTSID="{E677A649-5285-4A4A-999C-5F8210D760EA}"
+      DTS:From="Package\Truncate DimCampaign"
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint 2"
       DTS:To="Package\Truncate DimUser" />
     <DTS:PrecedenceConstraint
       DTS:refId="Package.PrecedenceConstraints[Constraint 3]"
       DTS:CreationName=""
-      DTS:DTSID="{A7775E11-3C3E-418A-8482-3AB93B07DA84}"
+      DTS:DTSID="{F3058745-82EC-400B-92C7-ECE54B6AF83F}"
       DTS:From="Package\Truncate DimUser"
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint 3"
-      DTS:To="Package\Load DimUser Initial" />
+      DTS:To="Package\Truncate StgChangedUsers" />
     <DTS:PrecedenceConstraint
       DTS:refId="Package.PrecedenceConstraints[Constraint 4]"
       DTS:CreationName=""
-      DTS:DTSID="{A62C962C-4DC3-422B-B9AA-F9C39F037321}"
-      DTS:From="Package\Load DimUser Initial"
+      DTS:DTSID="{61CF07C5-1D16-49A1-8114-F967BDBDDEE8}"
+      DTS:From="Package\Truncate StgChangedUsers"
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint 4"
-      DTS:To="Package\Truncate StgChangedUsers" />
+      DTS:To="Package\Load DimCampaign" />
     <DTS:PrecedenceConstraint
       DTS:refId="Package.PrecedenceConstraints[Constraint 5]"
       DTS:CreationName=""
-      DTS:DTSID="{A14BF62F-5058-47F4-AB00-D907C1765B1F}"
-      DTS:From="Package\Truncate StgChangedUsers"
+      DTS:DTSID="{4AE6C322-8D7A-4501-AC8A-0FF7BAE5F4DC}"
+      DTS:From="Package\Load DimCampaign"
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint 5"
-      DTS:To="Package\Find Changed Users" />
+      DTS:To="Package\Load DimAd" />
     <DTS:PrecedenceConstraint
       DTS:refId="Package.PrecedenceConstraints[Constraint 6]"
       DTS:CreationName=""
-      DTS:DTSID="{1F545CA1-EFA4-4D3E-830E-36F270ACF889}"
+      DTS:DTSID="{BDF1F6B5-F4ED-452E-BCA3-C1FD141FA8A2}"
       DTS:From="Package\Find Changed Users"
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint 6"
       DTS:To="Package\Expire Old User Records" />
     <DTS:PrecedenceConstraint
-      DTS:refId="Package.PrecedenceConstraints[Constraint 7]"
-      DTS:CreationName=""
-      DTS:DTSID="{993A6198-FB44-4A2D-BEB5-66928D989AB8}"
-      DTS:From="Package\Expire Old User Records"
-      DTS:LogicalAnd="True"
-      DTS:ObjectName="Constraint 7"
-      DTS:To="Package\Insert New User Versions" />
-    <DTS:PrecedenceConstraint
       DTS:refId="Package.PrecedenceConstraints[Constraint 8]"
       DTS:CreationName=""
-      DTS:DTSID="{702809A0-4A1A-40A0-976B-531B4AA0F6DA}"
-      DTS:From="Package\Insert New User Versions"
+      DTS:DTSID="{F28008CA-4A8C-4E4A-82A2-E2ADC3FD0903}"
+      DTS:From="Package\Load DimAd"
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint 8"
-      DTS:To="Package\Truncate FactAdEvent" />
+      DTS:To="Package\Load DimUser Initial" />
     <DTS:PrecedenceConstraint
       DTS:refId="Package.PrecedenceConstraints[Constraint 9]"
       DTS:CreationName=""
-      DTS:DTSID="{5186CF18-CE7B-4722-817C-ECB2FFC86905}"
-      DTS:From="Package\Truncate DimCampaign"
+      DTS:DTSID="{7D4B70C7-B62D-4A51-812E-BCB2F80EF266}"
+      DTS:From="Package\Load DimUser Initial"
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint 9"
-      DTS:To="Package\Load DimCampaign" />
+      DTS:To="Package\Find Changed Users" />
   </DTS:PrecedenceConstraints>
   <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
 <!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
@@ -5461,65 +6468,65 @@ INNER JOIN (
         <NodeLayout
           Size="188,41.6"
           Id="Package\Truncate DimCampaign"
-          TopLeft="100.833327824043,83.1999994214376" />
+          TopLeft="501.66663925681,101.399999294877" />
         <NodeLayout
           Size="153.6,41.6"
           Id="Package\Truncate DimAd"
-          TopLeft="350.833314164646,180.266665413115" />
+          TopLeft="515.833305149444,28.5999998011191" />
         <NodeLayout
           Size="162.4,41.6"
           Id="Package\Truncate DimUser"
-          TopLeft="106.666660838657,248.733331603673" />
+          TopLeft="144.166658789748,96.1999993310373" />
         <NodeLayout
           Size="207.2,41.6"
           Id="Package\Truncate StgChangedUsers"
-          TopLeft="562.499969266357,250.466664924953" />
+          TopLeft="114.166660428876,175.933332109915" />
         <NodeLayout
-          Size="192.8,41.6"
+          Size="192.8,44"
           Id="Package\Expire Old User Records"
-          TopLeft="344.999981150032,321.533331097431" />
+          TopLeft="522.49997145186,329.333331043191" />
         <NodeLayout
           Size="181.6,41.6"
           Id="Package\Truncate FactAdEvent"
-          TopLeft="103.333327687449,406.466663840148" />
+          TopLeft="143.333325501946,25.1333331585593" />
         <NodeLayout
           Size="170.4,41.6"
           Id="Package\Load DimCampaign"
-          TopLeft="106.666660838657,179.399998752475" />
+          TopLeft="512.499971998236,175.933332109915" />
         <NodeLayout
           Size="135.2,41.6"
           Id="Package\Load DimAd"
-          TopLeft="604.166633656457,175.066665449275" />
+          TopLeft="528.333304466474,246.133331621753" />
         <NodeLayout
           Size="172,41.6"
           Id="Package\Load DimUser Initial"
-          TopLeft="343.333314574428,246.999998282393" />
+          TopLeft="128.33332632151,251.333331585593" />
         <NodeLayout
           Size="173.6,41.6"
           Id="Package\Find Changed Users"
-          TopLeft="117.499993580083,318.066664454871" />
+          TopLeft="131.666659472718,335.39999766767" />
         <NodeLayout
           Size="196,41.6"
           Id="Package\Insert New User Versions"
-          TopLeft="579.933301734594,318.066664454871" />
+          TopLeft="517.433305149444,481.866663315826" />
         <NodeLayout
           Size="164,41.6"
           Id="Package\Load FactAdEvent"
-          TopLeft="379.366648954982,405.599997179508" />
+          TopLeft="160.199994263053,406.466663840148" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint]"
-          TopLeft="277.066660838657,200.633332082795">
+          TopLeft="324.933325501946,44.8666664798392">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="73.7666533259888,0"
+              EndConnector="190.899979647499,0"
               Start="0,0"
-              End="66.2666533259888,0">
+              End="183.399979647499,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="66.2666533259888,0" />
+                    End="183.399979647499,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -5530,18 +6537,18 @@ INNER JOIN (
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 1]"
-          TopLeft="504.433314164646,198.466665431195">
+          TopLeft="594.149972203127,70.1999998011191">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="99.7333194918106,0"
+              EndConnector="0,31.199999493758"
               Start="0,0"
-              End="92.2333194918106,0">
+              End="0,23.699999493758">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="92.2333194918106,0" />
+                    End="0,23.699999493758" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -5552,30 +6559,18 @@ INNER JOIN (
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 2]"
-          TopLeft="671.766633656457,216.666665449275">
+          TopLeft="501.66663925681,119.599999312957">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-483.899972817799,32.066666154398"
+              EndConnector="-195.099980467062,0"
               Start="0,0"
-              End="-483.899972817799,24.566666154398">
+              End="-187.599980467062,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,12.033333077199" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,12.033333077199"
-                    Point2="0,16.033333077199"
-                    Point3="-4,16.033333077199" />
-                  <mssgle:LineSegment
-                    End="-479.899972817799,16.033333077199" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-479.899972817799,16.033333077199"
-                    Point2="-483.899972817799,16.033333077199"
-                    Point3="-483.899972817799,20.033333077199" />
-                  <mssgle:LineSegment
-                    End="-483.899972817799,24.566666154398" />
+                    End="-187.599980467062,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -5586,18 +6581,18 @@ INNER JOIN (
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 3]"
-          TopLeft="269.066660838657,268.666664943033">
+          TopLeft="221.566659609312,137.799999331037">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="74.2666537357707,0"
+              EndConnector="0,38.1333327788776"
               Start="0,0"
-              End="66.7666537357707,0">
+              End="0,30.6333327788776">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="66.7666537357707,0" />
+                    End="0,30.6333327788776" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -5608,18 +6603,18 @@ INNER JOIN (
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 4]"
-          TopLeft="515.333314574428,269.533331603673">
+          TopLeft="321.366660428876,196.733332109915">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="47.1666546919287,0"
+              EndConnector="191.133311569361,0"
               Start="0,0"
-              End="39.6666546919287,0">
+              End="183.633311569361,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="39.6666546919287,0" />
+                    End="183.633311569361,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -5630,74 +6625,18 @@ INNER JOIN (
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 5]"
-          TopLeft="666.099969266357,292.066664924953">
+          TopLeft="596.816638232355,217.533332109915">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-461.799975686273,25.9999995299181"
+              EndConnector="0,28.599999511838"
               Start="0,0"
-              End="-461.799975686273,18.4999995299181">
+              End="0,21.099999511838">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,8.99999976495906" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,8.99999976495906"
-                    Point2="0,12.9999997649591"
-                    Point3="-4,12.9999997649591" />
-                  <mssgle:LineSegment
-                    End="-457.799975686273,12.9999997649591" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-457.799975686273,12.9999997649591"
-                    Point2="-461.799975686273,12.9999997649591"
-                    Point3="-461.799975686273,16.9999997649591" />
-                  <mssgle:LineSegment
-                    End="-461.799975686273,18.4999995299181" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package.PrecedenceConstraints[Constraint 6]"
-          TopLeft="291.099993580083,340.599997776151">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="53.8999875699485,0"
-              Start="0,0"
-              End="46.3999875699485,0">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="46.3999875699485,0" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package.PrecedenceConstraints[Constraint 7]"
-          TopLeft="537.799981150032,340.599997776151">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="42.1333205845625,0"
-              Start="0,0"
-              End="34.6333205845625,0">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="34.6333205845625,0" />
+                    End="0,21.099999511838" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -5708,30 +6647,18 @@ INNER JOIN (
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 8]"
-          TopLeft="677.933301734594,359.666664454871">
+          TopLeft="528.333304466474,269.533331603673">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-483.799974047145,46.7999993852774"
+              EndConnector="-227.999978144965,0"
               Start="0,0"
-              End="-483.799974047145,39.2999993852774">
+              End="-220.499978144965,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,19.3999996926387" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,19.3999996926387"
-                    Point2="0,23.3999996926387"
-                    Point3="-4,23.3999996926387" />
-                  <mssgle:LineSegment
-                    End="-479.799974047145,23.3999996926387" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-479.799974047145,23.3999996926387"
-                    Point2="-483.799974047145,23.3999996926387"
-                    Point3="-483.799974047145,27.3999996926387" />
-                  <mssgle:LineSegment
-                    End="-483.799974047145,39.2999993852774" />
+                    End="-220.499978144965,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -5742,18 +6669,40 @@ INNER JOIN (
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 9]"
-          TopLeft="193.34999433135,124.799999421438">
+          TopLeft="216.399992897114,292.933331585593">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,54.5999993310372"
+              EndConnector="0,42.4666660820776"
               Start="0,0"
-              End="0,47.0999993310372">
+              End="0,34.9666660820776">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,47.0999993310372" />
+                    End="0,34.9666660820776" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 6]"
+          TopLeft="305.266659472717,353.76666435543">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="217.233311979143,0"
+              Start="0,0"
+              End="209.733311979143,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="209.733311979143,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -5764,18 +6713,90 @@ INNER JOIN (
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 10]"
-          TopLeft="284.933327687449,426.833330509828">
+          TopLeft="584.099971816111,481.866663315826">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="94.4333212675325,0"
+              EndConnector="-341.899977553057,-33.799999475678"
               Start="0,0"
-              End="86.9333212675325,0">
+              End="-341.899977553057,-26.299999475678">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="86.9333212675325,0" />
+                    End="0,-9.68421031403968" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,-9.68421031403968"
+                    Point2="0,-13.6842103140397"
+                    Point3="-4,-13.6842103140397" />
+                  <mssgle:LineSegment
+                    End="-337.899977553057,-13.6842103140397" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-337.899977553057,-13.6842103140397"
+                    Point2="-341.899977553057,-13.6842103140397"
+                    Point3="-341.899977553057,-17.6842103140397" />
+                  <mssgle:LineSegment
+                    End="-341.899977553057,-26.299999475678" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="215.2,41.6"
+          Id="Package\Delete Existing Current Users"
+          TopLeft="534.166637481088,412.533330464628" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 11]"
+          TopLeft="618.89997145186,373.333331043191">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="22.866666029228,39.1999994214377"
+              Start="0,0"
+              End="22.866666029228,31.6999994214377">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,15.5999997107189" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,15.5999997107189"
+                    Point2="0,19.5999997107189"
+                    Point3="4,19.5999997107189" />
+                  <mssgle:LineSegment
+                    End="18.866666029228,19.5999997107189" />
+                  <mssgle:CubicBezierSegment
+                    Point1="18.866666029228,19.5999997107189"
+                    Point2="22.866666029228,19.5999997107189"
+                    Point3="22.866666029228,23.5999997107189" />
+                  <mssgle:LineSegment
+                    End="22.866666029228,31.6999994214377" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 12]"
+          TopLeft="644.266637981933,454.133330464628">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,27.7333328511979"
+              Start="0,0"
+              End="0,20.2333328511979">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20.2333328511979" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -5797,35 +6818,73 @@ INNER JOIN (
           Id="Package\Load DimCampaign\SRC_StgCampaigns"
           TopLeft="157.49999139458,47.6666663351986" />
         <NodeLayout
-          Size="152.8,41.6"
-          Id="Package\Load DimCampaign\Derived Column"
-          TopLeft="251.666652916207,151.666665611996" />
+          Size="180.8,41.6"
+          Id="Package\Load DimCampaign\DRV_CampaignDates"
+          TopLeft="254.166652779613,152.533332272636" />
         <EdgeLayout
           Id="Package\Load DimCampaign.Paths[OLE DB Source Output]"
           TopLeft="244.69999139458,89.2666663351986">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="83.3666615216271,62.399999276797"
+              EndConnector="99.866661385033,63.2666659374369"
               Start="0,0"
-              End="83.3666615216271,54.899999276797">
+              End="99.866661385033,55.7666659374369">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,27.1999996383985" />
+                    End="0,27.6333329687185" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,27.1999996383985"
-                    Point2="0,31.1999996383985"
-                    Point3="4,31.1999996383985" />
+                    Point1="0,27.6333329687185"
+                    Point2="0,31.6333329687185"
+                    Point3="4,31.6333329687185" />
                   <mssgle:LineSegment
-                    End="79.3666615216271,31.1999996383985" />
+                    End="95.866661385033,31.6333329687185" />
                   <mssgle:CubicBezierSegment
-                    Point1="79.3666615216271,31.1999996383985"
-                    Point2="83.3666615216271,31.1999996383985"
-                    Point3="83.3666615216271,35.1999996383985" />
+                    Point1="95.866661385033,31.6333329687185"
+                    Point2="99.866661385033,31.6333329687185"
+                    Point3="99.866661385033,35.6333329687185" />
                   <mssgle:LineSegment
-                    End="83.3666615216271,54.899999276797" />
+                    End="99.866661385033,55.7666659374369" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="164.8,41.6"
+          Id="Package\Load DimCampaign\DC_DimCampaign"
+          TopLeft="410.833310886391,228.799998408953" />
+        <EdgeLayout
+          Id="Package\Load DimCampaign.Paths[Derived Column Output]"
+          TopLeft="344.566652779613,194.133332272636">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="148.666658106778,34.6666661363178"
+              Start="0,0"
+              End="148.666658106778,27.1666661363178">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,13.3333330681589" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,13.3333330681589"
+                    Point2="0,17.3333330681589"
+                    Point3="4,17.3333330681589" />
+                  <mssgle:LineSegment
+                    End="144.666658106778,17.3333330681589" />
+                  <mssgle:CubicBezierSegment
+                    Point1="144.666658106778,17.3333330681589"
+                    Point2="148.666658106778,17.3333330681589"
+                    Point3="148.666658106778,21.3333330681589" />
+                  <mssgle:LineSegment
+                    End="148.666658106778,27.1666661363178" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -5836,34 +6895,34 @@ INNER JOIN (
         </EdgeLayout>
         <NodeLayout
           Size="171.2,41.6"
-          Id="Package\Load DimCampaign\OLE DB Destination"
-          TopLeft="352.49998074025,250.466664924953" />
+          Id="Package\Load DimCampaign\DST_DimCampaign"
+          TopLeft="534.99997076889,332.79999768575" />
         <EdgeLayout
-          Id="Package\Load DimCampaign.Paths[Derived Column Output]"
-          TopLeft="328.066652916207,193.266665611996">
+          Id="Package\Load DimCampaign.Paths[Data Conversion Output]"
+          TopLeft="493.233310886391,270.399998408953">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="110.033327824043,57.1999993129572"
+              EndConnector="127.366659882499,62.399999276797"
               Start="0,0"
-              End="110.033327824043,49.6999993129572">
+              End="127.366659882499,54.899999276797">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,24.5999996564786" />
+                    End="0,27.1999996383985" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,24.5999996564786"
-                    Point2="0,28.5999996564786"
-                    Point3="4,28.5999996564786" />
+                    Point1="0,27.1999996383985"
+                    Point2="0,31.1999996383985"
+                    Point3="4,31.1999996383985" />
                   <mssgle:LineSegment
-                    End="106.033327824043,28.5999996564786" />
+                    End="123.366659882499,31.1999996383985" />
                   <mssgle:CubicBezierSegment
-                    Point1="106.033327824043,28.5999996564786"
-                    Point2="110.033327824043,28.5999996564786"
-                    Point3="110.033327824043,32.5999996564786" />
+                    Point1="123.366659882499,31.1999996383985"
+                    Point2="127.366659882499,31.1999996383985"
+                    Point3="127.366659882499,35.1999996383985" />
                   <mssgle:LineSegment
-                    End="110.033327824043,49.6999993129572" />
+                    End="127.366659882499,54.899999276797" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -5879,41 +6938,79 @@ INNER JOIN (
     design-time-name="Package\Load DimAd">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="140,41.6"
           Id="Package\Load DimAd\SRC_StgAds"
-          TopLeft="154.99999769032,80.999998793006" />
+          TopLeft="150.999997749925,74.9999988824129" />
         <NodeLayout
-          Size="136,41.6"
-          Id="Package\Load DimAd\DST_DimAd"
-          TopLeft="312.999995335937,213.999996811152" />
+          Size="130.4,41.6"
+          Id="Package\Load DimAd\DC_DimAd"
+          TopLeft="285.999995738268,183.999997258186" />
         <EdgeLayout
           Id="Package\Load DimAd.Paths[OLE DB Source Output]"
-          TopLeft="224.99999769032,122.599998793006">
+          TopLeft="220.999997749925,116.599998882413">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="155.999997645617,91.3999980181456"
+              EndConnector="130.199997988343,67.3999983757734"
               Start="0,0"
-              End="155.999997645617,83.8999980181456">
+              End="130.199997988343,59.8999983757734">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,41.6999990090728" />
+                    End="0,29.6999991878867" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,41.6999990090728"
-                    Point2="0,45.6999990090728"
-                    Point3="4,45.6999990090728" />
+                    Point1="0,29.6999991878867"
+                    Point2="0,33.6999991878867"
+                    Point3="4,33.6999991878867" />
                   <mssgle:LineSegment
-                    End="151.999997645617,45.6999990090728" />
+                    End="126.199997988343,33.6999991878867" />
                   <mssgle:CubicBezierSegment
-                    Point1="151.999997645617,45.6999990090728"
-                    Point2="155.999997645617,45.6999990090728"
-                    Point3="155.999997645617,49.6999990090728" />
+                    Point1="126.199997988343,33.6999991878867"
+                    Point2="130.199997988343,33.6999991878867"
+                    Point3="130.199997988343,37.6999991878867" />
                   <mssgle:LineSegment
-                    End="155.999997645617,83.8999980181456" />
+                    End="130.199997988343,59.8999983757734" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="171.2,41.6"
+          Id="Package\Load DimAd\OLE DB Destination"
+          TopLeft="421.99999371171,326.99999512732" />
+        <EdgeLayout
+          Id="Package\Load DimAd.Paths[Data Conversion Output]"
+          TopLeft="351.199995738268,225.599997258186">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="156.399997973442,101.399997869134"
+              Start="0,0"
+              End="156.399997973442,93.899997869134">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,46.699998934567" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,46.699998934567"
+                    Point2="0,50.699998934567"
+                    Point3="4,50.699998934567" />
+                  <mssgle:LineSegment
+                    End="152.399997973442,50.699998934567" />
+                  <mssgle:CubicBezierSegment
+                    Point1="152.399997973442,50.699998934567"
+                    Point2="156.399997973442,50.699998934567"
+                    Point3="156.399997973442,54.699998934567" />
+                  <mssgle:LineSegment
+                    End="156.399997973442,93.899997869134" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -5937,33 +7034,71 @@ INNER JOIN (
         <NodeLayout
           Size="152,41.6"
           Id="Package\Load DimUser Initial\DRV_UserAudit"
-          TopLeft="304.999995455146,197.99999704957" />
+          TopLeft="234.999996498227,168.999997481704" />
         <EdgeLayout
           Id="Package\Load DimUser Initial.Paths[OLE DB Source Output]"
           TopLeft="222.399997794628,118.599998852611">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="158.599997660518,79.3999981969595"
+              EndConnector="88.5999987035991,50.3999986290931"
               Start="0,0"
-              End="158.599997660518,71.8999981969595">
+              End="88.5999987035991,42.8999986290931">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,35.6999990984798" />
+                    End="0,21.1999993145466" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,35.6999990984798"
-                    Point2="0,39.6999990984798"
-                    Point3="4,39.6999990984798" />
+                    Point1="0,21.1999993145466"
+                    Point2="0,25.1999993145466"
+                    Point3="4,25.1999993145466" />
                   <mssgle:LineSegment
-                    End="154.599997660518,39.6999990984798" />
+                    End="84.5999987035991,25.1999993145466" />
                   <mssgle:CubicBezierSegment
-                    Point1="154.599997660518,39.6999990984798"
-                    Point2="158.599997660518,39.6999990984798"
-                    Point3="158.599997660518,43.6999990984798" />
+                    Point1="84.5999987035991,25.1999993145466"
+                    Point2="88.5999987035991,25.1999993145466"
+                    Point3="88.5999987035991,29.1999993145466" />
                   <mssgle:LineSegment
-                    End="158.599997660518,71.8999981969595" />
+                    End="88.5999987035991,42.8999986290931" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="164,41.6"
+          Id="Package\Load DimUser Initial\DC_DimUserInitial"
+          TopLeft="413.999993830919,274.999995902181" />
+        <EdgeLayout
+          Id="Package\Load DimUser Initial.Paths[Derived Column Output]"
+          TopLeft="310.999996498227,210.599997481704">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="184.999997332692,64.399998420477"
+              Start="0,0"
+              End="184.999997332692,56.899998420477">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,28.1999992102385" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,28.1999992102385"
+                    Point2="0,32.1999992102385"
+                    Point3="4,32.1999992102385" />
+                  <mssgle:LineSegment
+                    End="180.999997332692,32.1999992102385" />
+                  <mssgle:CubicBezierSegment
+                    Point1="180.999997332692,32.1999992102385"
+                    Point2="184.999997332692,32.1999992102385"
+                    Point3="184.999997332692,36.1999992102385" />
+                  <mssgle:LineSegment
+                    End="184.999997332692,56.899998420477" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -5975,33 +7110,33 @@ INNER JOIN (
         <NodeLayout
           Size="171.2,41.6"
           Id="Package\Load DimUser Initial\OLE DB Destination"
-          TopLeft="496.999992594123,321.999995201826" />
+          TopLeft="563.999991595745,364.999994561076" />
         <EdgeLayout
-          Id="Package\Load DimUser Initial.Paths[Derived Column Output]"
-          TopLeft="380.999995455146,239.59999704957">
+          Id="Package\Load DimUser Initial.Paths[Data Conversion Output]"
+          TopLeft="495.999993830919,316.599995902181">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="201.599997138977,82.3999981522561"
+              EndConnector="153.599997764826,48.3999986588954"
               Start="0,0"
-              End="201.599997138977,74.8999981522561">
+              End="153.599997764826,40.8999986588954">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,37.1999990761281" />
+                    End="0,20.1999993294477" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,37.1999990761281"
-                    Point2="0,41.1999990761281"
-                    Point3="4,41.1999990761281" />
+                    Point1="0,20.1999993294477"
+                    Point2="0,24.1999993294477"
+                    Point3="4,24.1999993294477" />
                   <mssgle:LineSegment
-                    End="197.599997138977,41.1999990761281" />
+                    End="149.599997764826,24.1999993294477" />
                   <mssgle:CubicBezierSegment
-                    Point1="197.599997138977,41.1999990761281"
-                    Point2="201.599997138977,41.1999990761281"
-                    Point3="201.599997138977,45.1999990761281" />
+                    Point1="149.599997764826,24.1999993294477"
+                    Point2="153.599997764826,24.1999993294477"
+                    Point3="153.599997764826,28.1999993294477" />
                   <mssgle:LineSegment
-                    End="201.599997138977,74.8999981522561" />
+                    End="153.599997764826,40.8999986588954" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -6267,35 +7402,73 @@ INNER JOIN (
           </EdgeLayout.Labels>
         </EdgeLayout>
         <NodeLayout
-          Size="206.4,41.6"
-          Id="Package\Insert New User Versions\DST_NewDimUserVersions"
-          TopLeft="548.999991819263,310.999995365739" />
+          Size="182.4,41.6"
+          Id="Package\Insert New User Versions\DC_NewUserVersions"
+          TopLeft="554.999991729855,280.999995812774" />
         <EdgeLayout
           Id="Package\Insert New User Versions.Paths[Derived Column Output]"
           TopLeft="441.399994710088,233.599997138977">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="210.799997109175,77.3999982267619"
+              EndConnector="204.799997019768,47.3999986737967"
               Start="0,0"
-              End="210.799997109175,69.8999982267619">
+              End="204.799997019768,39.8999986737967">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,34.699999113381" />
+                    End="0,19.6999993368983" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,34.699999113381"
-                    Point2="0,38.699999113381"
-                    Point3="4,38.699999113381" />
+                    Point1="0,19.6999993368983"
+                    Point2="0,23.6999993368983"
+                    Point3="4,23.6999993368983" />
                   <mssgle:LineSegment
-                    End="206.799997109175,38.699999113381" />
+                    End="200.799997019768,23.6999993368983" />
                   <mssgle:CubicBezierSegment
-                    Point1="206.799997109175,38.699999113381"
-                    Point2="210.799997109175,38.699999113381"
-                    Point3="210.799997109175,42.699999113381" />
+                    Point1="200.799997019768,23.6999993368983"
+                    Point2="204.799997019768,23.6999993368983"
+                    Point3="204.799997019768,27.6999993368983" />
                   <mssgle:LineSegment
-                    End="210.799997109175,69.8999982267619" />
+                    End="204.799997019768,39.8999986737967" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="206.4,41.6"
+          Id="Package\Insert New User Versions\DST_NewDimUserVersions"
+          TopLeft="752.999988779426,399.999994039536" />
+        <EdgeLayout
+          Id="Package\Insert New User Versions.Paths[Data Conversion Output]"
+          TopLeft="646.199991729855,322.599995812774">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="209.99999704957,77.3999982267619"
+              Start="0,0"
+              End="209.99999704957,69.8999982267619">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,34.6999991133809" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,34.6999991133809"
+                    Point2="0,38.6999991133809"
+                    Point3="4,38.6999991133809" />
+                  <mssgle:LineSegment
+                    End="205.99999704957,38.6999991133809" />
+                  <mssgle:CubicBezierSegment
+                    Point1="205.99999704957,38.6999991133809"
+                    Point2="209.99999704957,38.6999991133809"
+                    Point3="209.99999704957,42.6999991133809" />
+                  <mssgle:LineSegment
+                    End="209.99999704957,69.8999982267619" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -6605,19 +7778,6 @@ INNER JOIN (
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\Load DimCampaign\OLE DB Destination">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
     design-time-name="Package\Load DimAd\SRC_StgAds">
     <Properties>
       <Property>
@@ -6631,33 +7791,7 @@ INNER JOIN (
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\Load DimAd\DST_DimAd">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
     design-time-name="Package\Load DimUser Initial\SRC_StgUsers">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\Load DimUser Initial\OLE DB Destination">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -6707,19 +7841,6 @@ INNER JOIN (
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
     design-time-name="Package\Insert New User Versions\SRC_StgChangedUsers">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\Insert New User Versions\DST_NewDimUserVersions">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -6823,6 +7944,58 @@ INNER JOIN (
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
     design-time-name="Package\Find Changed Users\DST_StgChangedUsers">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load DimCampaign\DST_DimCampaign">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load DimAd\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load DimUser Initial\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Insert New User Versions\DST_NewDimUserVersions">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
