@@ -26,13 +26,13 @@
           <SSIS:Property SSIS:Name="CreatorComputerName">MANO</SSIS:Property>
           <SSIS:Property SSIS:Name="Description">
           </SSIS:Property>
-          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAUVAgy+gQiEaHb/aSvbQGEwAAAAACAAAAAAAQZgAAAAEAACAAAAAYo0zwyDc6VKWxo4GC9m8aDP0J4PSFT+/HgGWaf7CjGwAAAAAOgAAAAAIAACAAAAAOjSI97Uq+tuiKTVNpgIH5zNyZqyRre5FHYG3IZLkO3pAAAAA4ynRBMqyVLKyifIrM7Dpmze2wkKERuFu3xh7lDQUNg0kXs2Bv+i48/UgV6NElKA6yWtWp0kFmW40FptmCeWUX0MmJ37v+zNGWjv0EAD7xGZUFpcYDxvvBQkyfy7RAVJY9Fl/8bA0gGiNfxadCEaFzb3VkJ+tQe6ZkmBCMk2+GxtFKoVg+3M7Bzwq/Qsi+cBFAAAAAnfSyYWwpVScbneu9BZpN6riioRrpKmatkII694eHsafc8qIV1W3UnFfeDPtovbPXN6XvGEFmdjYRqZ4/qI5mng==</SSIS:Property>
+          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAUVAgy+gQiEaHb/aSvbQGEwAAAAACAAAAAAAQZgAAAAEAACAAAADyC9/cw/iQInO79VzQhoICJbpkEGFdQvvWXuqfWF802gAAAAAOgAAAAAIAACAAAAB5Bis6l+FF+f4JO5tomLbM9GfelEHhf57pj1Yj051D/5AAAACrSsKNFeuYgsBCMBPZyuxngOYaSPK1yiOGbDg1Fh4AjPgUqVYPZGALTFXN38Fvoc6ZlNQ74IhQdqj0jPZ/GdjTfwtjvu+Z++OBJc6bz1S6DWD2SJ7EXhX6cl07MVMio286nHy65jDwAlPRiQddhdLqii2+Gxy9NU8lEPVAfsY0uZL1cSSLcpFbjOTaoKyVSONAAAAAiJWq//hElgRWnokvHzMiO4ah6i8odEqR27nCDih/y+pF5CtvXGJPGPpMb0oZZaSOoFrewVPHoplLfkcr+ni9Xw==</SSIS:Property>
           <SSIS:Property SSIS:Name="FormatVersion">1</SSIS:Property>
         </SSIS:Properties>
         <SSIS:Packages>
           <SSIS:Package SSIS:Name="01_Load_Staging.dtsx" SSIS:EntryPoint="1" />
-          <SSIS:Package SSIS:Name="02_Load_DW.dtsx" SSIS:EntryPoint="1" />
           <SSIS:Package SSIS:Name="03_Update_Accumulating_Fact.dtsx" SSIS:EntryPoint="1" />
+          <SSIS:Package SSIS:Name="02_Load_DW.dtsx" SSIS:EntryPoint="1" />
         </SSIS:Packages>
         <SSIS:ConnectionManagers />
         <SSIS:DeploymentInfo>
@@ -216,6 +216,8 @@
                     <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Value">
+                    </SSIS:Property>
                     <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
                   </SSIS:Properties>
                 </SSIS:Parameter>
@@ -411,6 +413,8 @@
                     <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Value">
+                    </SSIS:Property>
                     <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
                   </SSIS:Properties>
                 </SSIS:Parameter>
@@ -904,6 +908,8 @@
                     <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Value">
+                    </SSIS:Property>
                     <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
                   </SSIS:Properties>
                 </SSIS:Parameter>
@@ -1099,6 +1105,8 @@
                     <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Value">
+                    </SSIS:Property>
                     <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
                   </SSIS:Properties>
                 </SSIS:Parameter>
@@ -1134,16 +1142,33 @@
                 </SSIS:Parameter>
               </SSIS:Parameters>
             </SSIS:PackageMetaData>
-            <SSIS:PackageMetaData SSIS:Name="02_Load_DW.dtsx">
+            <SSIS:PackageMetaData SSIS:Name="03_Update_Accumulating_Fact.dtsx">
               <SSIS:Properties>
-                <SSIS:Property SSIS:Name="ID">{041395F6-8955-42F5-84E1-2232517C01BD}</SSIS:Property>
+                <SSIS:Property SSIS:Name="ID">{034BF0B5-E65B-412D-B8BF-6EE307C2C2A5}</SSIS:Property>
                 <SSIS:Property SSIS:Name="Name">Package1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">9</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">0</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{50E7AC7B-2092-4B5F-A97A-ACFD36E74490}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{73C0AB04-0F9E-478A-82F8-2229E91C6E88}</SSIS:Property>
+                <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
+                <SSIS:Property SSIS:Name="Description">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="ProtectionLevel">1</SSIS:Property>
+              </SSIS:Properties>
+              <SSIS:Parameters />
+            </SSIS:PackageMetaData>
+            <SSIS:PackageMetaData SSIS:Name="02_Load_DW.dtsx">
+              <SSIS:Properties>
+                <SSIS:Property SSIS:Name="ID">{A9870281-B6FD-442C-A391-4C946080E743}</SSIS:Property>
+                <SSIS:Property SSIS:Name="Name">02_Load_DW</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">2</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionComments">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{440A1D76-8CAF-44D9-A413-3AD28217E0B3}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>
@@ -1176,7 +1201,7 @@
                     <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Value">Data Source=localhost;User ID=sa;Initial Catalog=AdTech_DW;Provider=MSOLEDBSQL.1;Persist Security Info=False;Initial File Name=;Server SPN=;Authentication=;Access Token=;Application Name=SSIS-Package1-{005EEE88-72A6-4999-84B0-9765828C8F20}localhost.AdTech_DW.sa;Auto Translate=False;</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Value">Data Source=localhost;User ID=sa;Initial Catalog=AdTech_DW;Provider=MSOLEDBSQL.1;Persist Security Info=False;Auto Translate=False;Application Name=SSIS-02_Load_DW-{E84821E2-DD63-4871-99BB-06BCA9B88FBA}localhost.AdTech_DW.sa;</SSIS:Property>
                     <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
                   </SSIS:Properties>
                 </SSIS:Parameter>
@@ -1325,7 +1350,7 @@
                     <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Value">Data Source=localhost;User ID=sa;Initial Catalog=AdTech_Staging;Provider=MSOLEDBSQL19.1;Persist Security Info=False;Initial File Name=;Trust Server Certificate=True;Server SPN=;Authentication=;Access Token=;Host Name In Certificate=;Server Certificate=;Application Name=SSIS-Package1-{19522E1A-BE50-4B85-A7DE-62913D7B5EB9}localhost.AdTech_Staging.sa;Auto Translate=False;</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Value">Data Source=localhost;User ID=sa;Initial Catalog=AdTech_Staging;Provider=MSOLEDBSQL19.1;Persist Security Info=False;Auto Translate=False;Application Name=SSIS-02_Load_DW-{161E0DFE-4079-41E2-B403-CF1DE51EC361}localhost.AdTech_Staging.sa;Trust Server Certificate=True;</SSIS:Property>
                     <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
                   </SSIS:Properties>
                 </SSIS:Parameter>
@@ -1449,23 +1474,6 @@
                   </SSIS:Properties>
                 </SSIS:Parameter>
               </SSIS:Parameters>
-            </SSIS:PackageMetaData>
-            <SSIS:PackageMetaData SSIS:Name="03_Update_Accumulating_Fact.dtsx">
-              <SSIS:Properties>
-                <SSIS:Property SSIS:Name="ID">{034BF0B5-E65B-412D-B8BF-6EE307C2C2A5}</SSIS:Property>
-                <SSIS:Property SSIS:Name="Name">Package1</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionComments">
-                </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{73C0AB04-0F9E-478A-82F8-2229E91C6E88}</SSIS:Property>
-                <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
-                <SSIS:Property SSIS:Name="Description">
-                </SSIS:Property>
-                <SSIS:Property SSIS:Name="ProtectionLevel">1</SSIS:Property>
-              </SSIS:Properties>
-              <SSIS:Parameters />
             </SSIS:PackageMetaData>
           </SSIS:PackageInfo>
         </SSIS:DeploymentInfo>
