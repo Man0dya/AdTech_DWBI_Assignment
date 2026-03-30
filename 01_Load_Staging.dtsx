@@ -11,8 +11,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="01_Load_Staging"
   DTS:PackageType="5"
-  DTS:VersionBuild="13"
-  DTS:VersionGUID="{D0C55C19-901C-4BD0-A22E-60E5A7B78FB6}">
+  DTS:VersionBuild="14"
+  DTS:VersionGUID="{352C058F-2D57-4A5D-B81C-CF499FE93A98}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -150,7 +150,7 @@
           <DTS:Password
             DTS:Name="Password"
             Sensitive="1"
-            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAUVAgy+gQiEaHb/aSvbQGEwAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAACmmmpPlwsa3x+Vm5pgmPnJRjuFysxOYnvu9eCdwCv5XgAAAAAOgAAAAAIAACAAAAC4Q+ngwV8v1qy0pC4pGzIKu6GKLow3sJsw91tnPHUx4RAAAAB3my+nnct6Q3hUpfEsEl+TQAAAALKxBnhPPNTr8bLNAU6GA33EyWGu3QeWfwUXPdgvk6vWgNy2mOLxRJM5lJnOBTEjjhabSiv9cojo+tlgdpqHYr4</DTS:Password>
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAUVAgy+gQiEaHb/aSvbQGEwAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAADzrvAFiimGHzfVz4m4fCR1skZDB/S38OK7b2HmNrtToQAAAAAOgAAAAAIAACAAAAAXw69rJfuTjDWP562oeabY+pYpcbi3gRl0pKRptYH/vhAAAACv9i2xV+zLw6GgbnSU0nvVQAAAAOCaZXbJCq5OYT9CZyj027GOiG4V6Q5a0pz/pBbpJDtCqVCGceNyvoQV2HOEQIdjXXqlDKfs28dCA3i1pdM1tzQ</DTS:Password>
         </DTS:ConnectionManager>
       </DTS:ObjectData>
     </DTS:ConnectionManager>
@@ -167,7 +167,7 @@
           <DTS:Password
             DTS:Name="Password"
             Sensitive="1"
-            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAUVAgy+gQiEaHb/aSvbQGEwAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAADYgN5bfRK2q7R0sFHzcFqK042oOCY/GwDx3NJuokwpCgAAAAAOgAAAAAIAACAAAADvfRTnrvfPijhmx+2tO3HnAMtr3L4en6puB6weV7Sf/RAAAAAYzT1Xq1sj0o4fDyGn/89gQAAAAEl17Wj4nkFYfsgp1Y+/HYlzPo9HAw9ouXvO+V2Txsql7sv1kGFgeUNZMosk7IIKAKivpXSAALjdJaUIM9+3mnY</DTS:Password>
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAUVAgy+gQiEaHb/aSvbQGEwAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAAC7zQ7Wmv4nqjwqTD2r59etyYIodLC8QTxWkQyJxt3pMAAAAAAOgAAAAAIAACAAAAAH33ckC6HVoFoOsb2Rt09yZuaDv7mFD6GdJdi5913l6BAAAAC37U2AHwhWLogl0P4O73oZQAAAACGTOIrCVUnxeOWkhjc3Cz6APh2iXTra0uOzyfT40IsaZDwVpN/0dAiJ/cYRgW4w4lgxzl5MRPp97Z4EYlfEii4</DTS:Password>
         </DTS:ConnectionManager>
       </DTS:ObjectData>
     </DTS:ConnectionManager>
@@ -3353,13 +3353,29 @@
       <GraphLayout
         Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="206.4,41.6"
-          Id="Package\Load Campaigns to Staging"
-          TopLeft="39.9999978144964,25.9999998191993" />
+          Size="200.8,41.6"
+          Id="Package\Load Ad Events to Staging"
+          TopLeft="294.166650594109,238.333331675993" />
         <NodeLayout
           Size="172,41.6"
           Id="Package\Load Ads to Staging"
           TopLeft="129.999992897113,98.7999993129572" />
+        <NodeLayout
+          Size="206.4,41.6"
+          Id="Package\Load Campaigns to Staging"
+          TopLeft="39.9999978144964,25.9999998191993" />
+        <NodeLayout
+          Size="248,41.6"
+          Id="Package\Load Completion Updates to Staging"
+          TopLeft="507.499972271424,376.133330717749" />
+        <NodeLayout
+          Size="217.6,41.6"
+          Id="Package\Load User Updates to Staging"
+          TopLeft="387.499978827935,308.533331187831" />
+        <NodeLayout
+          Size="180.8,41.6"
+          Id="Package\Load Users to Staging"
+          TopLeft="213.333321677315,171.599998806715" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint]"
           TopLeft="143.199997814496,67.5999998191993">
@@ -3394,10 +3410,6 @@
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="180.8,41.6"
-          Id="Package\Load Users to Staging"
-          TopLeft="213.333321677315,171.599998806715" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 1]"
           TopLeft="215.999992897113,140.399999312957">
@@ -3432,10 +3444,6 @@
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="200.8,41.6"
-          Id="Package\Load Ad Events to Staging"
-          TopLeft="294.166650594109,238.333331675993" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 2]"
           TopLeft="303.733321677315,213.199998806715">
@@ -3470,10 +3478,6 @@
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="217.6,41.6"
-          Id="Package\Load User Updates to Staging"
-          TopLeft="387.499978827935,308.533331187831" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 3]"
           TopLeft="394.566650594109,279.933331675993">
@@ -3508,10 +3512,6 @@
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="248,41.6"
-          Id="Package\Load Completion Updates to Staging"
-          TopLeft="507.499972271424,376.133330717749" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 4]"
           TopLeft="496.299978827935,350.133331187831">
@@ -3550,12 +3550,179 @@
           Text="scgjlfschukj"
           ParentId="Package"
           FontInfo="{assembly:Null}"
-          Size="88.8,60"
+          Size="88.8,40"
           Id="adedc7a5-2162-43ac-99c8-e2d5dbcae3ff"
           TopLeft="2074.999886627,732.333328240779" />
       </GraphLayout>
     </LayoutInfo>
   </Package>
+  <TaskHost
+    design-time-name="Package\Load Ad Events to Staging">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="171.2,41.6"
+          Id="Package\Load Ad Events to Staging\OLE DB Destination"
+          TopLeft="355.999994695187,276.999995872378" />
+        <NodeLayout
+          Size="151.2,41.6"
+          Id="Package\Load Ad Events to Staging\Flat File Source"
+          TopLeft="185.999997228384,104.999998435378" />
+        <EdgeLayout
+          Id="Package\Load Ad Events to Staging.Paths[Flat File Source Output]"
+          TopLeft="261.599997228384,146.599998435378">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="179.999997466803,130.399997437"
+              Start="0,0"
+              End="179.999997466803,122.899997437">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,61.1999987185002" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,61.1999987185002"
+                    Point2="0,65.1999987185002"
+                    Point3="4,65.1999987185002" />
+                  <mssgle:LineSegment
+                    End="175.999997466803,65.1999987185002" />
+                  <mssgle:CubicBezierSegment
+                    Point1="175.999997466803,65.1999987185002"
+                    Point2="179.999997466803,65.1999987185002"
+                    Point3="179.999997466803,69.1999987185002" />
+                  <mssgle:LineSegment
+                    End="179.999997466803,122.899997437" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <DtsEventHandler
+    design-time-name="Package\Load Ad Events to Staging.EventHandlers[OnPreExecute]">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="164.8,41.6"
+          Id="Package\Load Ad Events to Staging.EventHandlers[OnPreExecute]\Execute SQL Task"
+          TopLeft="237.999996453524,106.999998405576" />
+      </GraphLayout>
+    </LayoutInfo>
+  </DtsEventHandler>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Ad Events to Staging\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Load Ads to Staging">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="152,41.6"
+          Id="Package\Load Ads to Staging\OLE DB Source"
+          TopLeft="251.999996244907,90.9999986439943" />
+        <NodeLayout
+          Size="171.2,41.6"
+          Id="Package\Load Ads to Staging\OLE DB Destination"
+          TopLeft="297.999995559454,243.999996364117" />
+        <EdgeLayout
+          Id="Package\Load Ads to Staging.Paths[OLE DB Source Output]"
+          TopLeft="327.999996244907,132.599998643994">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="55.5999993145465,111.399997720122"
+              Start="0,0"
+              End="55.5999993145465,103.899997720122">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,51.6999988600612" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,51.6999988600612"
+                    Point2="0,55.6999988600612"
+                    Point3="4,55.6999988600612" />
+                  <mssgle:LineSegment
+                    End="51.5999993145465,55.6999988600612" />
+                  <mssgle:CubicBezierSegment
+                    Point1="51.5999993145465,55.6999988600612"
+                    Point2="55.5999993145465,55.6999988600612"
+                    Point3="55.5999993145465,59.6999988600612" />
+                  <mssgle:LineSegment
+                    End="55.5999993145465,103.899997720122" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <DtsEventHandler
+    design-time-name="Package\Load Ads to Staging.EventHandlers[OnPreExecute]">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="164.8,41.6"
+          Id="Package\Load Ads to Staging.EventHandlers[OnPreExecute]\Execute SQL Task"
+          TopLeft="377.999994367361,106.999998405576" />
+      </GraphLayout>
+    </LayoutInfo>
+  </DtsEventHandler>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Ads to Staging\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Ads to Staging\OLE DB Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
   <TaskHost
     design-time-name="Package\Load Campaigns to Staging">
     <LayoutInfo>
@@ -3606,169 +3773,134 @@
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
-  <TaskHost
-    design-time-name="Package\Load Ads to Staging">
+  <DtsEventHandler
+    design-time-name="Package\Load Campaigns to Staging.EventHandlers[OnPreExecute]">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
         <NodeLayout
-          Size="152,41.6"
-          Id="Package\Load Ads to Staging\OLE DB Source"
-          TopLeft="251.999996244907,90.9999986439943" />
-        <NodeLayout
-          Size="171.2,41.6"
-          Id="Package\Load Ads to Staging\OLE DB Destination"
-          TopLeft="297.999995559454,243.999996364117" />
-        <EdgeLayout
-          Id="Package\Load Ads to Staging.Paths[OLE DB Source Output]"
-          TopLeft="327.999996244907,132.599998643994">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="55.5999993145465,111.399997720122"
-              Start="0,0"
-              End="55.5999993145465,103.899997720122">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,51.6999988600612" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,51.6999988600612"
-                    Point2="0,55.6999988600612"
-                    Point3="4,55.6999988600612" />
-                  <mssgle:LineSegment
-                    End="51.5999993145465,55.6999988600612" />
-                  <mssgle:CubicBezierSegment
-                    Point1="51.5999993145465,55.6999988600612"
-                    Point2="55.5999993145465,55.6999988600612"
-                    Point3="55.5999993145465,59.6999988600612" />
-                  <mssgle:LineSegment
-                    End="55.5999993145465,103.899997720122" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
+          Size="164.8,41.6"
+          Id="Package\Load Campaigns to Staging.EventHandlers[OnPreExecute]\Execute SQL Task"
+          TopLeft="266.99999602139,73.9999988973141" />
       </GraphLayout>
     </LayoutInfo>
-  </TaskHost>
+  </DtsEventHandler>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Campaigns to Staging\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Campaigns to Staging\OLE DB Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
   <TaskHost
-    design-time-name="Package\Load Users to Staging">
+    design-time-name="Package\Load Completion Updates to Staging">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="171.2,41.6"
+          Id="Package\Load Completion Updates to Staging\OLE DB Destination"
+          TopLeft="360.999994620681,268.999995991588" />
         <NodeLayout
           Size="151.2,41.6"
-          Id="Package\Load Users to Staging\Flat File Source"
-          TopLeft="263.999996066093,92.999998614192" />
-        <NodeLayout
-          Size="171.2,41.6"
-          Id="Package\Load Users to Staging\OLE DB Destination"
-          TopLeft="351.999994754791,223.99999666214" />
+          Id="Package\Load Completion Updates to Staging\Flat File Source"
+          TopLeft="232.999996528029,87.9999986886978" />
         <EdgeLayout
-          Id="Package\Load Users to Staging.Paths[Flat File Source Output]"
-          TopLeft="339.599996066093,134.599998614192">
+          Id="Package\Load Completion Updates to Staging.Paths[Flat File Source Output]"
+          TopLeft="308.599996528029,129.599998688698">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="97.9999986886978,89.3999980479479"
+              EndConnector="137.999998092651,139.39999730289"
               Start="0,0"
-              End="97.9999986886978,81.8999980479479">
+              End="137.999998092651,131.89999730289">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,40.699999023974" />
+                    End="0,65.6999986514449" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,40.699999023974"
-                    Point2="0,44.699999023974"
-                    Point3="4,44.699999023974" />
+                    Point1="0,65.6999986514449"
+                    Point2="0,69.6999986514449"
+                    Point3="4,69.6999986514449" />
                   <mssgle:LineSegment
-                    End="93.9999986886978,44.699999023974" />
+                    End="133.999998092651,69.6999986514449" />
                   <mssgle:CubicBezierSegment
-                    Point1="93.9999986886978,44.699999023974"
-                    Point2="97.9999986886978,44.699999023974"
-                    Point3="97.9999986886978,48.699999023974" />
+                    Point1="133.999998092651,69.6999986514449"
+                    Point2="137.999998092651,69.6999986514449"
+                    Point3="137.999998092651,73.6999986514449" />
                   <mssgle:LineSegment
-                    End="97.9999986886978,81.8999980479479" />
+                    End="137.999998092651,131.89999730289" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
-  <TaskHost
-    design-time-name="Package\Load Ad Events to Staging">
+  <DtsEventHandler
+    design-time-name="Package\Load Completion Updates to Staging.EventHandlers[OnPreExecute]">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
         <NodeLayout
-          Size="151.2,41.6"
-          Id="Package\Load Ad Events to Staging\Flat File Source"
-          TopLeft="185.999997228384,104.999998435378" />
-        <NodeLayout
-          Size="171.2,41.6"
-          Id="Package\Load Ad Events to Staging\OLE DB Destination"
-          TopLeft="355.999994695187,276.999995872378" />
-        <EdgeLayout
-          Id="Package\Load Ad Events to Staging.Paths[Flat File Source Output]"
-          TopLeft="261.599997228384,146.599998435378">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="179.999997466803,130.399997437"
-              Start="0,0"
-              End="179.999997466803,122.899997437">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,61.1999987185002" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,61.1999987185002"
-                    Point2="0,65.1999987185002"
-                    Point3="4,65.1999987185002" />
-                  <mssgle:LineSegment
-                    End="175.999997466803,65.1999987185002" />
-                  <mssgle:CubicBezierSegment
-                    Point1="175.999997466803,65.1999987185002"
-                    Point2="179.999997466803,65.1999987185002"
-                    Point3="179.999997466803,69.1999987185002" />
-                  <mssgle:LineSegment
-                    End="179.999997466803,122.899997437" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
+          Size="164.8,41.6"
+          Id="Package\Load Completion Updates to Staging.EventHandlers[OnPreExecute]\Execute SQL Task"
+          TopLeft="269.999995976687,90.9999986439943" />
       </GraphLayout>
     </LayoutInfo>
-  </TaskHost>
+  </DtsEventHandler>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Completion Updates to Staging\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
   <TaskHost
     design-time-name="Package\Load User Updates to Staging">
     <LayoutInfo>
       <GraphLayout
         Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="151.2,41.6"
-          Id="Package\Load User Updates to Staging\Flat File Source"
-          TopLeft="240.99999640882,94.9999985843897" />
-        <NodeLayout
           Size="171.2,41.6"
           Id="Package\Load User Updates to Staging\OLE DB Destination"
           TopLeft="374.999994412065,346.999994829297" />
+        <NodeLayout
+          Size="151.2,41.6"
+          Id="Package\Load User Updates to Staging\Flat File Source"
+          TopLeft="240.99999640882,94.9999985843897" />
         <EdgeLayout
           Id="Package\Load User Updates to Staging.Paths[Flat File Source Output]"
           TopLeft="316.59999640882,136.59999858439">
@@ -3806,156 +3938,6 @@
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
-  <TaskHost
-    design-time-name="Package\Load Completion Updates to Staging">
-    <LayoutInfo>
-      <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
-        <NodeLayout
-          Size="151.2,41.6"
-          Id="Package\Load Completion Updates to Staging\Flat File Source"
-          TopLeft="232.999996528029,87.9999986886978" />
-        <NodeLayout
-          Size="171.2,41.6"
-          Id="Package\Load Completion Updates to Staging\OLE DB Destination"
-          TopLeft="360.999994620681,268.999995991588" />
-        <EdgeLayout
-          Id="Package\Load Completion Updates to Staging.Paths[Flat File Source Output]"
-          TopLeft="308.599996528029,129.599998688698">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="137.999998092651,139.39999730289"
-              Start="0,0"
-              End="137.999998092651,131.89999730289">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,65.6999986514449" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,65.6999986514449"
-                    Point2="0,69.6999986514449"
-                    Point3="4,69.6999986514449" />
-                  <mssgle:LineSegment
-                    End="133.999998092651,69.6999986514449" />
-                  <mssgle:CubicBezierSegment
-                    Point1="133.999998092651,69.6999986514449"
-                    Point2="137.999998092651,69.6999986514449"
-                    Point3="137.999998092651,73.6999986514449" />
-                  <mssgle:LineSegment
-                    End="137.999998092651,131.89999730289" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-      </GraphLayout>
-    </LayoutInfo>
-  </TaskHost>
-  <DtsEventHandler
-    design-time-name="Package\Load Ad Events to Staging.EventHandlers[OnPreExecute]">
-    <LayoutInfo>
-      <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
-        <NodeLayout
-          Size="164.8,41.6"
-          Id="Package\Load Ad Events to Staging.EventHandlers[OnPreExecute]\Execute SQL Task"
-          TopLeft="237.999996453524,106.999998405576" />
-      </GraphLayout>
-    </LayoutInfo>
-  </DtsEventHandler>
-  <DtsEventHandler
-    design-time-name="Package\Load Campaigns to Staging.EventHandlers[OnPreExecute]">
-    <LayoutInfo>
-      <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
-        <NodeLayout
-          Size="164.8,41.6"
-          Id="Package\Load Campaigns to Staging.EventHandlers[OnPreExecute]\Execute SQL Task"
-          TopLeft="266.99999602139,73.9999988973141" />
-      </GraphLayout>
-    </LayoutInfo>
-  </DtsEventHandler>
-  <PipelineComponentMetadata
-    design-time-name="Package\Load Campaigns to Staging\OLE DB Source">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\Load Campaigns to Staging\OLE DB Destination">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\Load Ads to Staging\OLE DB Source">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\Load Ads to Staging\OLE DB Destination">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <DtsEventHandler
-    design-time-name="Package\Load Ads to Staging.EventHandlers[OnPreExecute]">
-    <LayoutInfo>
-      <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
-        <NodeLayout
-          Size="164.8,41.6"
-          Id="Package\Load Ads to Staging.EventHandlers[OnPreExecute]\Execute SQL Task"
-          TopLeft="377.999994367361,106.999998405576" />
-      </GraphLayout>
-    </LayoutInfo>
-  </DtsEventHandler>
-  <DtsEventHandler
-    design-time-name="Package\Load Users to Staging.EventHandlers[OnPreExecute]">
-    <LayoutInfo>
-      <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
-        <NodeLayout
-          Size="164.8,41.6"
-          Id="Package\Load Users to Staging.EventHandlers[OnPreExecute]\Execute SQL Task"
-          TopLeft="330.999995067716,163.99999755621" />
-      </GraphLayout>
-    </LayoutInfo>
-  </DtsEventHandler>
   <DtsEventHandler
     design-time-name="Package\Load User Updates to Staging.EventHandlers[OnPreExecute]">
     <LayoutInfo>
@@ -3968,44 +3950,6 @@
       </GraphLayout>
     </LayoutInfo>
   </DtsEventHandler>
-  <DtsEventHandler
-    design-time-name="Package\Load Completion Updates to Staging.EventHandlers[OnPreExecute]">
-    <LayoutInfo>
-      <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
-        <NodeLayout
-          Size="164.8,41.6"
-          Id="Package\Load Completion Updates to Staging.EventHandlers[OnPreExecute]\Execute SQL Task"
-          TopLeft="269.999995976687,90.9999986439943" />
-      </GraphLayout>
-    </LayoutInfo>
-  </DtsEventHandler>
-  <PipelineComponentMetadata
-    design-time-name="Package\Load Users to Staging\OLE DB Destination">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\Load Ad Events to Staging\OLE DB Destination">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
   <PipelineComponentMetadata
     design-time-name="Package\Load User Updates to Staging\OLE DB Destination">
     <Properties>
@@ -4019,8 +3963,70 @@
       </Property>
     </Properties>
   </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Load Users to Staging">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="151.2,41.6"
+          Id="Package\Load Users to Staging\Flat File Source"
+          TopLeft="263.999996066093,92.999998614192" />
+        <NodeLayout
+          Size="171.2,41.6"
+          Id="Package\Load Users to Staging\OLE DB Destination"
+          TopLeft="346.999994829297,183.999997258186" />
+        <EdgeLayout
+          Id="Package\Load Users to Staging.Paths[Flat File Source Output]"
+          TopLeft="339.599996066093,134.599998614192">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="92.9999987632037,49.3999986439944"
+              Start="0,0"
+              End="92.9999987632037,41.8999986439944">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20.6999993219972" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,20.6999993219972"
+                    Point2="0,24.6999993219972"
+                    Point3="4,24.6999993219972" />
+                  <mssgle:LineSegment
+                    End="88.9999987632037,24.6999993219972" />
+                  <mssgle:CubicBezierSegment
+                    Point1="88.9999987632037,24.6999993219972"
+                    Point2="92.9999987632037,24.6999993219972"
+                    Point3="92.9999987632037,28.6999993219972" />
+                  <mssgle:LineSegment
+                    End="92.9999987632037,41.8999986439944" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <DtsEventHandler
+    design-time-name="Package\Load Users to Staging.EventHandlers[OnPreExecute]">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="164.8,41.6"
+          Id="Package\Load Users to Staging.EventHandlers[OnPreExecute]\Execute SQL Task"
+          TopLeft="330.999995067716,163.99999755621" />
+      </GraphLayout>
+    </LayoutInfo>
+  </DtsEventHandler>
   <PipelineComponentMetadata
-    design-time-name="Package\Load Completion Updates to Staging\OLE DB Destination">
+    design-time-name="Package\Load Users to Staging\OLE DB Destination">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>

@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0"?>
 <DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
   DTS:refId="Package"
   DTS:CreationDate="3/28/2026 6:58:52 PM"
@@ -11,9 +11,84 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="Package1"
   DTS:PackageType="5"
-  DTS:VersionGUID="{73C0AB04-0F9E-478A-82F8-2229E91C6E88}">
+  DTS:VersionBuild="4"
+  DTS:VersionGUID="{F9204AA1-41A3-4C64-A067-056741B7ECBD}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[CM_DW]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{148C49E7-BA57-40EA-8A56-C92BB307D354}"
+      DTS:ObjectName="CM_DW">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=localhost;User ID=sa;Initial Catalog=AdTech_DW;Provider=MSOLEDBSQL.1;Persist Security Info=False;Initial File Name=;Server SPN=;Authentication=;Access Token=;Application Name=SSIS-Package1-{148C49E7-BA57-40EA-8A56-C92BB307D354}localhost.AdTech_DW.sa;Auto Translate=False;">
+          <DTS:Password
+            DTS:Name="Password"
+            Sensitive="1"
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAUVAgy+gQiEaHb/aSvbQGEwAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAACOrkL8KJZKF66q/g/XSEgFXD1YAGxNhqTcDzKg1oOHNQAAAAAOgAAAAAIAACAAAADbg+/BPqlNhN445rp4ZMUqqAEEza9QY9M63wP90GNIPBAAAAC4Ya2SG3tLggPzJ+L+1J7sQAAAABu66VGE8maDYOgWptP6vJ02L5UqTj64D30Jnhbs4TCKQqkmL+EmxCOG+wHAp3gJUGVWep/kIvU/d4NOEMni9aQ</DTS:Password>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[CM_Staging]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{2F51E205-CF67-48C6-A459-6F28904CBD44}"
+      DTS:ObjectName="CM_Staging">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=localhost;User ID=sa;Initial Catalog=AdTech_Staging;Provider=MSOLEDBSQL19.1;Persist Security Info=False;Initial File Name=;Trust Server Certificate=True;Server SPN=;Authentication=;Access Token=;Host Name In Certificate=;Server Certificate=;Application Name=SSIS-Package1-{2F51E205-CF67-48C6-A459-6F28904CBD44}localhost.AdTech_Staging.sa;Auto Translate=False;">
+          <DTS:Password
+            DTS:Name="Password"
+            Sensitive="1"
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAUVAgy+gQiEaHb/aSvbQGEwAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAAAQ47Pm41orplfOsud+zBXmPqb1JlUoT6+xVMW81kbgIwAAAAAOgAAAAAIAACAAAAAVAos/i4GuMUbccfpmwq9CWB9Z3irX1H+/OOYpzq2QvhAAAADG+/jjsVcm3+zmZvhV9xHvQAAAAHbtQfiTSYQV7UyMMlabOzKiRX0v20nXG4kv5KOeW/b9FvVGp2BpbPNuia0cC15pKqTm3Lp1Ec+GVAQJy+wVT/4</DTS:Password>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
   <DTS:Variables />
-  <DTS:Executables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Update Fact Completion Times"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{9B6440F7-DA4C-40A9-86F9-B872FD3B3D61}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Update Fact Completion Times"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{148C49E7-BA57-40EA-8A56-C92BB307D354}"
+          SQLTask:SqlStatementSource="UPDATE f&#xA;SET&#xA;    f.accm_txn_complete_time = s.accm_txn_complete_time,&#xA;    f.txn_process_time_hours =&#xA;        DATEDIFF(MINUTE, f.accm_txn_create_time, s.accm_txn_complete_time) / 60.0&#xA;FROM dbo.FactAdEvent f&#xA;INNER JOIN AdTech_Staging.dbo.StgCompletionUpdates s&#xA;    ON f.EventTransactionID = s.txn_id;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="221.6,41.6"
+          Id="Package\Update Fact Completion Times"
+          TopLeft="79.999995628993,54.5999996203184" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+</Objects>]]></DTS:DesignTimeProperties>
 </DTS:Executable>
